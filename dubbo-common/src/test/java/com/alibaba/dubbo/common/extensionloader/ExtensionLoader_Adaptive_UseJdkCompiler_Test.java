@@ -17,7 +17,6 @@
 package com.alibaba.dubbo.common.extensionloader;
 
 import com.alibaba.dubbo.common.compiler.support.AdaptiveCompiler;
-
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 

@@ -19,11 +19,7 @@ package com.alibaba.dubbo.config.model;
 import com.alibaba.dubbo.config.ServiceConfig;
 
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ProviderModel {
     private final String serviceName;

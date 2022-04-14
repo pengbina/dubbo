@@ -24,19 +24,13 @@ import com.alibaba.dubbo.registry.support.AbstractRegistryFactory;
 import com.alibaba.nacos.api.NacosFactory;
 import com.alibaba.nacos.api.exception.NacosException;
 import com.alibaba.nacos.api.naming.NamingService;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Properties;
 
 import static com.alibaba.dubbo.common.Constants.BACKUP_KEY;
-import static com.alibaba.nacos.api.PropertyKeyConst.ACCESS_KEY;
-import static com.alibaba.nacos.api.PropertyKeyConst.CLUSTER_NAME;
-import static com.alibaba.nacos.api.PropertyKeyConst.ENDPOINT;
-import static com.alibaba.nacos.api.PropertyKeyConst.NAMESPACE;
-import static com.alibaba.nacos.api.PropertyKeyConst.SECRET_KEY;
-import static com.alibaba.nacos.api.PropertyKeyConst.SERVER_ADDR;
+import static com.alibaba.nacos.api.PropertyKeyConst.*;
 import static com.alibaba.nacos.client.naming.utils.UtilAndComs.NACOS_NAMING_LOG_NAME;
 
 /**
@@ -48,6 +42,7 @@ public class NacosRegistryFactory extends AbstractRegistryFactory {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
+    @Override
     protected Registry createRegistry(URL url) {
         return new NacosRegistry(url, buildNamingService(url));
     }

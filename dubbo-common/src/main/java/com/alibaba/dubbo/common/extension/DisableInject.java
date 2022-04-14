@@ -16,12 +16,14 @@
  */
 package com.alibaba.dubbo.common.extension;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 
+/**
+ * 该注解可以使用在类，接口，方法上，在createExtension的时候表示不自动注入
+ * 在ExtensionLoader类中，创建子类实现的时候会自动注入由ExtensionLoader管理的类，
+ * 就会调用injectExtension(instance)方法，然后再方法遍历的时候会检测有没有该DisableInject注解，
+ * 如果有的话就会跳过，不自动注入
+ */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE, ElementType.METHOD})

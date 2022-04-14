@@ -18,7 +18,6 @@ package com.alibaba.dubbo.rpc.protocol.rest.support;
 
 import com.alibaba.dubbo.common.logger.Logger;
 import com.alibaba.dubbo.common.logger.LoggerFactory;
-
 import org.apache.commons.io.IOUtils;
 
 import javax.annotation.Priority;

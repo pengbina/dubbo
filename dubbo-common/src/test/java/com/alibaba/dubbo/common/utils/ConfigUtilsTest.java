@@ -18,21 +18,15 @@ package com.alibaba.dubbo.common.utils;
 
 import com.alibaba.dubbo.common.Constants;
 import com.alibaba.dubbo.common.threadpool.ThreadPool;
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.*;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
 import static java.util.Arrays.asList;
-import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 

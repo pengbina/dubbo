@@ -17,7 +17,6 @@
 package com.alibaba.dubbo.config.spring.beans.factory.annotation.multiple.provider;
 
 import com.alibaba.dubbo.config.spring.context.annotation.EnableDubbo;
-
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.PropertySource;
 

@@ -17,7 +17,6 @@
 package com.alibaba.dubbo.demo.consumer;
 
 import com.alibaba.dubbo.demo.service.DemoService;
-
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.io.IOException;

@@ -18,7 +18,6 @@ package com.alibaba.dubbo.rpc.protocol.thrift;
 
 import com.alibaba.dubbo.common.extension.ExtensionLoader;
 import com.alibaba.dubbo.rpc.gen.dubbo.$__DemoStub;
-
 import org.junit.Assert;
 import org.junit.Test;
 

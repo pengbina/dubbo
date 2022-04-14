@@ -25,7 +25,6 @@ import com.alibaba.dubbo.remoting.http.HttpHandler;
 import com.alibaba.dubbo.remoting.http.servlet.DispatcherServlet;
 import com.alibaba.dubbo.remoting.http.servlet.ServletManager;
 import com.alibaba.dubbo.remoting.http.support.AbstractHttpServer;
-
 import org.mortbay.jetty.Server;
 import org.mortbay.jetty.nio.SelectChannelConnector;
 import org.mortbay.jetty.servlet.Context;

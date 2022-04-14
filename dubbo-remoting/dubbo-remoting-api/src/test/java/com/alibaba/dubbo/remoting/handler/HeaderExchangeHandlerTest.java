@@ -25,7 +25,6 @@ import com.alibaba.dubbo.remoting.exchange.ExchangeHandler;
 import com.alibaba.dubbo.remoting.exchange.Request;
 import com.alibaba.dubbo.remoting.exchange.Response;
 import com.alibaba.dubbo.remoting.exchange.support.header.HeaderExchangeHandler;
-
 import org.junit.Assert;
 import org.junit.Test;
 

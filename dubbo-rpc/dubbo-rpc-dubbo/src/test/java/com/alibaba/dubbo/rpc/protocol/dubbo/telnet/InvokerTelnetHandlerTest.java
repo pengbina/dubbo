@@ -24,11 +24,11 @@ import com.alibaba.dubbo.remoting.Channel;
 import com.alibaba.dubbo.remoting.ChannelHandler;
 import com.alibaba.dubbo.remoting.RemotingException;
 import com.alibaba.dubbo.remoting.telnet.TelnetHandler;
-import com.alibaba.dubbo.rpc.*;
+import com.alibaba.dubbo.rpc.Protocol;
+import com.alibaba.dubbo.rpc.ProxyFactory;
 import com.alibaba.dubbo.rpc.protocol.dubbo.support.DemoService;
 import com.alibaba.dubbo.rpc.protocol.dubbo.support.DemoServiceImpl;
 import com.alibaba.dubbo.rpc.protocol.dubbo.support.ProtocolUtils;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

@@ -18,7 +18,6 @@ package com.alibaba.dubbo.rpc.cluster.support;
 
 import com.alibaba.dubbo.common.Constants;
 import com.alibaba.dubbo.common.URL;
-
 import org.junit.Assert;
 import org.junit.Test;
 

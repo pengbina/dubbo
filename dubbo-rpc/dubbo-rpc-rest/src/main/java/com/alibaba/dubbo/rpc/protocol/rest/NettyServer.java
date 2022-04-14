@@ -19,7 +19,6 @@ package com.alibaba.dubbo.rpc.protocol.rest;
 import com.alibaba.dubbo.common.Constants;
 import com.alibaba.dubbo.common.URL;
 import com.alibaba.dubbo.common.utils.NetUtils;
-
 import io.netty.channel.ChannelOption;
 import org.jboss.resteasy.plugins.server.netty.NettyJaxrsServer;
 import org.jboss.resteasy.spi.ResteasyDeployment;

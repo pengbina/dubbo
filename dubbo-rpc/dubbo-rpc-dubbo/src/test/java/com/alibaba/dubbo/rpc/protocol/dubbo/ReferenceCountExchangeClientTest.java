@@ -26,7 +26,6 @@ import com.alibaba.dubbo.remoting.exchange.ExchangeClient;
 import com.alibaba.dubbo.rpc.Exporter;
 import com.alibaba.dubbo.rpc.Invoker;
 import com.alibaba.dubbo.rpc.ProxyFactory;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;

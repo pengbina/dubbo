@@ -31,7 +31,6 @@ import com.alibaba.dubbo.remoting.exchange.Request;
 import com.alibaba.dubbo.remoting.exchange.Response;
 import com.alibaba.dubbo.remoting.exchange.codec.ExchangeCodec;
 import com.alibaba.dubbo.remoting.telnet.codec.TelnetCodec;
-
 import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;

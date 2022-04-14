@@ -23,7 +23,6 @@ import com.alibaba.dubbo.rpc.Protocol;
 import com.alibaba.dubbo.rpc.ProxyFactory;
 import com.alibaba.dubbo.rpc.protocol.dubbo.support.DemoService;
 import com.alibaba.dubbo.rpc.protocol.dubbo.support.DemoServiceImpl;
-
 import junit.framework.TestCase;
 
 import java.util.concurrent.ExecutorService;

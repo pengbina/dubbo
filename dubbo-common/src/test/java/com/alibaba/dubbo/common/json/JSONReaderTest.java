@@ -17,7 +17,6 @@
 package com.alibaba.dubbo.common.json;
 
 import com.alibaba.dubbo.common.io.UnsafeStringReader;
-
 import junit.framework.TestCase;
 
 public class JSONReaderTest extends TestCase {

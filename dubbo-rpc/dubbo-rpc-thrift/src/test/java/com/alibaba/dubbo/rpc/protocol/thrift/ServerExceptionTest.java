@@ -21,7 +21,6 @@ import com.alibaba.dubbo.rpc.Result;
 import com.alibaba.dubbo.rpc.RpcException;
 import com.alibaba.dubbo.rpc.RpcInvocation;
 import com.alibaba.dubbo.rpc.gen.dubbo.$__DemoStub;
-
 import org.junit.Assert;
 import org.junit.Test;
 

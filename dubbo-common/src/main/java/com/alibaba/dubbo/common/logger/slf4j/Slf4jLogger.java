@@ -18,7 +18,6 @@ package com.alibaba.dubbo.common.logger.slf4j;
 
 import com.alibaba.dubbo.common.logger.Logger;
 import com.alibaba.dubbo.common.logger.support.FailsafeLogger;
-
 import org.slf4j.spi.LocationAwareLogger;
 
 import java.io.Serializable;

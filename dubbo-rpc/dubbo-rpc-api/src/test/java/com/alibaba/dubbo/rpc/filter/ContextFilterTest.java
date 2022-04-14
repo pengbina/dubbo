@@ -17,16 +17,10 @@
 package com.alibaba.dubbo.rpc.filter;
 
 import com.alibaba.dubbo.common.URL;
-import com.alibaba.dubbo.rpc.Filter;
-import com.alibaba.dubbo.rpc.Invocation;
-import com.alibaba.dubbo.rpc.Invoker;
-import com.alibaba.dubbo.rpc.Result;
-import com.alibaba.dubbo.rpc.RpcContext;
-import com.alibaba.dubbo.rpc.RpcResult;
+import com.alibaba.dubbo.rpc.*;
 import com.alibaba.dubbo.rpc.support.DemoService;
 import com.alibaba.dubbo.rpc.support.MockInvocation;
 import com.alibaba.dubbo.rpc.support.MyInvoker;
-
 import org.junit.Test;
 
 import static org.junit.Assert.assertNull;

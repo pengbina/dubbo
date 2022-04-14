@@ -28,7 +28,6 @@ import com.alibaba.dubbo.rpc.RpcResult;
 import com.alibaba.dubbo.rpc.protocol.dubbo.DubboProtocol;
 import com.alibaba.dubbo.rpc.protocol.dubbo.support.DemoService;
 import com.alibaba.dubbo.rpc.protocol.dubbo.support.ProtocolUtils;
-
 import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;

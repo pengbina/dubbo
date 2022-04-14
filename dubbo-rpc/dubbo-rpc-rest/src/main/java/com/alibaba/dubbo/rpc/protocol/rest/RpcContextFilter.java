@@ -18,7 +18,6 @@ package com.alibaba.dubbo.rpc.protocol.rest;
 
 import com.alibaba.dubbo.common.utils.StringUtils;
 import com.alibaba.dubbo.rpc.RpcContext;
-
 import org.jboss.resteasy.spi.ResteasyProviderFactory;
 
 import javax.annotation.Priority;

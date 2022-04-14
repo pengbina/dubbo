@@ -21,7 +21,6 @@ import com.alibaba.dubbo.examples.rest.api.UserService;
 import com.alibaba.dubbo.examples.rest.api.facade.AnotherUserRestService;
 import com.alibaba.dubbo.examples.rest.api.facade.RegistrationResult;
 import com.alibaba.dubbo.rpc.RpcContext;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

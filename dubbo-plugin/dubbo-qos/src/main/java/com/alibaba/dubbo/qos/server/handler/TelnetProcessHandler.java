@@ -25,7 +25,6 @@ import com.alibaba.dubbo.qos.command.DefaultCommandExecutor;
 import com.alibaba.dubbo.qos.command.NoSuchCommandException;
 import com.alibaba.dubbo.qos.command.decoder.TelnetCommandDecoder;
 import com.alibaba.dubbo.qos.common.QosConstants;
-
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;

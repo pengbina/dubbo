@@ -24,16 +24,11 @@ import com.alibaba.dubbo.registry.RegistryFactory;
 import com.alibaba.dubbo.registry.integration.RegistryProtocol;
 import com.alibaba.dubbo.registry.support.AbstractRegistry;
 import com.alibaba.dubbo.remoting.exchange.ExchangeClient;
-import com.alibaba.dubbo.rpc.Exporter;
-import com.alibaba.dubbo.rpc.Invocation;
-import com.alibaba.dubbo.rpc.Invoker;
-import com.alibaba.dubbo.rpc.Protocol;
-import com.alibaba.dubbo.rpc.Result;
+import com.alibaba.dubbo.rpc.*;
 import com.alibaba.dubbo.rpc.cluster.support.FailfastCluster;
 import com.alibaba.dubbo.rpc.protocol.AbstractInvoker;
 import com.alibaba.dubbo.rpc.protocol.dubbo.DubboInvoker;
 import com.alibaba.dubbo.rpc.protocol.dubbo.DubboProtocol;
-
 import org.junit.Assert;
 import org.junit.Test;
 

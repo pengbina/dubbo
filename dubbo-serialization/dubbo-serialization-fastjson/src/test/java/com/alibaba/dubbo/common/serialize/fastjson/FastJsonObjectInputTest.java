@@ -16,16 +16,11 @@
  */
 package com.alibaba.dubbo.common.serialize.fastjson;
 
-import static org.hamcrest.CoreMatchers.not;
-import static org.hamcrest.CoreMatchers.nullValue;
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
-
 import com.alibaba.dubbo.common.serialize.fastjson.model.Organization;
 import com.alibaba.dubbo.common.serialize.fastjson.model.Person;
 import com.alibaba.fastjson.JSONObject;
+import org.junit.Test;
+
 import java.io.ByteArrayInputStream;
 import java.io.EOFException;
 import java.io.IOException;
@@ -33,8 +28,12 @@ import java.io.StringReader;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 import java.util.List;
-import javax.lang.model.util.Types;
-import org.junit.Test;
+
+import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.CoreMatchers.nullValue;
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 public class FastJsonObjectInputTest {
     private FastJsonObjectInput fastJsonObjectInput;

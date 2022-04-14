@@ -23,7 +23,6 @@ import com.alibaba.dubbo.common.logger.LoggerFactory;
 import com.alibaba.dubbo.remoting.ChannelHandler;
 import com.alibaba.dubbo.remoting.RemotingException;
 import com.alibaba.dubbo.remoting.transport.AbstractChannel;
-
 import org.apache.mina.common.IoSession;
 import org.apache.mina.common.WriteFuture;
 

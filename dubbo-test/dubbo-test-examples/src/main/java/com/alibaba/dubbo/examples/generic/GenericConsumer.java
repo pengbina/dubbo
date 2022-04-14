@@ -19,7 +19,6 @@ package com.alibaba.dubbo.examples.generic;
 import com.alibaba.dubbo.examples.generic.api.IUserService;
 import com.alibaba.dubbo.examples.generic.api.IUserService.Params;
 import com.alibaba.dubbo.examples.generic.api.IUserService.User;
-
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**

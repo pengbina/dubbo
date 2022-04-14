@@ -16,8 +16,8 @@
  */
 package com.alibaba.dubbo.common.utils;
 
-import com.alibaba.dubbo.common.beanutil.JavaBeanSerializeUtil;
 import com.alibaba.dubbo.common.Constants;
+import com.alibaba.dubbo.common.beanutil.JavaBeanSerializeUtil;
 import com.alibaba.dubbo.common.logger.Logger;
 import com.alibaba.dubbo.common.logger.LoggerFactory;
 

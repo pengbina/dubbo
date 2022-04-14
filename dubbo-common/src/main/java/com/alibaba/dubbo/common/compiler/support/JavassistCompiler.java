@@ -17,13 +17,7 @@
 package com.alibaba.dubbo.common.compiler.support;
 
 import com.alibaba.dubbo.common.utils.ClassHelper;
-
-import javassist.ClassPool;
-import javassist.CtClass;
-import javassist.CtField;
-import javassist.CtNewConstructor;
-import javassist.CtNewMethod;
-import javassist.LoaderClassPath;
+import javassist.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -29,7 +29,6 @@ import com.alibaba.dubbo.config.api.User;
 import com.alibaba.dubbo.config.provider.impl.DemoServiceImpl;
 import com.alibaba.dubbo.rpc.service.GenericException;
 import com.alibaba.dubbo.rpc.service.GenericService;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

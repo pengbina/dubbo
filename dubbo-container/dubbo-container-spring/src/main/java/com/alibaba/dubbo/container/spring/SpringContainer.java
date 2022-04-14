@@ -20,7 +20,6 @@ import com.alibaba.dubbo.common.logger.Logger;
 import com.alibaba.dubbo.common.logger.LoggerFactory;
 import com.alibaba.dubbo.common.utils.ConfigUtils;
 import com.alibaba.dubbo.container.Container;
-
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**

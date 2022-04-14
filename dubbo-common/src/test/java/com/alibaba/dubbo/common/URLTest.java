@@ -17,7 +17,6 @@
 package com.alibaba.dubbo.common;
 
 import com.alibaba.dubbo.common.utils.CollectionUtils;
-
 import org.junit.Test;
 
 import java.io.File;
@@ -27,12 +26,7 @@ import java.util.Map;
 
 import static org.hamcrest.CoreMatchers.anyOf;
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 public class URLTest {
 

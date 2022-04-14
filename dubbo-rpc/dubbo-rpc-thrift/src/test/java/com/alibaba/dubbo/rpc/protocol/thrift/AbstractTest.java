@@ -24,7 +24,6 @@ import com.alibaba.dubbo.rpc.Protocol;
 import com.alibaba.dubbo.rpc.gen.dubbo.$__DemoStub;
 import com.alibaba.dubbo.rpc.gen.dubbo.Demo;
 import com.alibaba.dubbo.rpc.protocol.thrift.ext.MultiServiceProcessor;
-
 import org.apache.thrift.TProcessor;
 import org.apache.thrift.protocol.TBinaryProtocol;
 import org.apache.thrift.server.TServer;

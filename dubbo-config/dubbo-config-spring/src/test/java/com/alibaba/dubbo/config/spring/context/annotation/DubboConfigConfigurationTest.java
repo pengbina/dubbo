@@ -20,7 +20,6 @@ import com.alibaba.dubbo.config.ApplicationConfig;
 import com.alibaba.dubbo.config.ModuleConfig;
 import com.alibaba.dubbo.config.ProtocolConfig;
 import com.alibaba.dubbo.config.RegistryConfig;
-
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;

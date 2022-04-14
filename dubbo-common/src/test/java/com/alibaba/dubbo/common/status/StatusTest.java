@@ -20,9 +20,7 @@ package com.alibaba.dubbo.common.status;
 import org.junit.Test;
 
 import static com.alibaba.dubbo.common.status.Status.Level.OK;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.isEmptyOrNullString;
+import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
 
 public class StatusTest {

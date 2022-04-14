@@ -24,13 +24,8 @@ import com.alibaba.dubbo.remoting.buffer.ChannelBufferOutputStream;
 import com.alibaba.dubbo.remoting.exchange.Request;
 import com.alibaba.dubbo.remoting.exchange.Response;
 import com.alibaba.dubbo.rpc.Invocation;
-
 import org.apache.thrift.TException;
-import org.apache.thrift.protocol.TBinaryProtocol;
-import org.apache.thrift.protocol.TMessage;
-import org.apache.thrift.protocol.TMessageType;
-import org.apache.thrift.protocol.TProtocol;
-import org.apache.thrift.protocol.TStruct;
+import org.apache.thrift.protocol.*;
 import org.apache.thrift.transport.TIOStreamTransport;
 
 import java.io.IOException;

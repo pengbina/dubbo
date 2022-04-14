@@ -16,7 +16,6 @@
  */
 
 import com.alibaba.dubbo.rpc.protocol.thrift.ThriftUtils;
-
 import org.junit.Assert;
 import org.junit.Test;
 

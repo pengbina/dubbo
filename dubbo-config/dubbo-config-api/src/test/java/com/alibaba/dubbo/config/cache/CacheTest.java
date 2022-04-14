@@ -21,15 +21,9 @@ import com.alibaba.dubbo.cache.CacheFactory;
 import com.alibaba.dubbo.cache.support.threadlocal.ThreadLocalCache;
 import com.alibaba.dubbo.common.URL;
 import com.alibaba.dubbo.common.extension.ExtensionLoader;
-import com.alibaba.dubbo.config.ApplicationConfig;
-import com.alibaba.dubbo.config.MethodConfig;
-import com.alibaba.dubbo.config.ProtocolConfig;
-import com.alibaba.dubbo.config.ReferenceConfig;
-import com.alibaba.dubbo.config.RegistryConfig;
-import com.alibaba.dubbo.config.ServiceConfig;
+import com.alibaba.dubbo.config.*;
 import com.alibaba.dubbo.rpc.Invocation;
 import com.alibaba.dubbo.rpc.RpcInvocation;
-
 import junit.framework.TestCase;
 import org.junit.Test;
 

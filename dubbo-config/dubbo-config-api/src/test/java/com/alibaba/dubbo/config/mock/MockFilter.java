@@ -16,11 +16,7 @@
  */
 package com.alibaba.dubbo.config.mock;
 
-import com.alibaba.dubbo.rpc.Filter;
-import com.alibaba.dubbo.rpc.Invocation;
-import com.alibaba.dubbo.rpc.Invoker;
-import com.alibaba.dubbo.rpc.Result;
-import com.alibaba.dubbo.rpc.RpcException;
+import com.alibaba.dubbo.rpc.*;
 
 public class MockFilter implements Filter {
     @Override

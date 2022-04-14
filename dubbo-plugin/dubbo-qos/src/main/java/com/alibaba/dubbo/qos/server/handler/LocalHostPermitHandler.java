@@ -18,7 +18,6 @@ package com.alibaba.dubbo.qos.server.handler;
 
 
 import com.alibaba.dubbo.qos.common.QosConstants;
-
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelFutureListener;

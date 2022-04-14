@@ -22,7 +22,6 @@ import com.alibaba.dubbo.common.status.Status;
 import com.alibaba.dubbo.registry.RegistryFactory;
 import com.alibaba.dubbo.registry.status.RegistryStatusChecker;
 import com.alibaba.dubbo.registry.support.AbstractRegistryFactory;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

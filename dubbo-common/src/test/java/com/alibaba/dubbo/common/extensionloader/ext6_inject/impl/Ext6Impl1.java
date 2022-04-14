@@ -20,7 +20,6 @@ import com.alibaba.dubbo.common.URL;
 import com.alibaba.dubbo.common.extensionloader.ext1.SimpleExt;
 import com.alibaba.dubbo.common.extensionloader.ext6_inject.Dao;
 import com.alibaba.dubbo.common.extensionloader.ext6_inject.Ext6;
-
 import junit.framework.Assert;
 
 public class Ext6Impl1 implements Ext6 {

@@ -18,11 +18,7 @@
 package com.alibaba.dubbo.config.mock;
 
 import com.alibaba.dubbo.common.URL;
-import com.alibaba.dubbo.remoting.ChannelHandler;
-import com.alibaba.dubbo.remoting.Client;
-import com.alibaba.dubbo.remoting.RemotingException;
-import com.alibaba.dubbo.remoting.Server;
-import com.alibaba.dubbo.remoting.Transporter;
+import com.alibaba.dubbo.remoting.*;
 import org.mockito.Mockito;
 
 public class MockTransporter implements Transporter {

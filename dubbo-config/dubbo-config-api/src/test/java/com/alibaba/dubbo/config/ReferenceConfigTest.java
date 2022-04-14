@@ -22,7 +22,6 @@ import com.alibaba.dubbo.config.annotation.Method;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.dubbo.config.api.DemoService;
 import com.alibaba.dubbo.config.provider.impl.DemoServiceImpl;
-
 import junit.framework.Assert;
 import org.junit.Test;
 

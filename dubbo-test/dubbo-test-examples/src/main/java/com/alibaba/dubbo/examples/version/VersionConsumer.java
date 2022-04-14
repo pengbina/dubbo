@@ -17,7 +17,6 @@
 package com.alibaba.dubbo.examples.version;
 
 import com.alibaba.dubbo.examples.version.api.VersionService;
-
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**

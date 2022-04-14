@@ -23,7 +23,6 @@ import com.alibaba.dubbo.rpc.Invoker;
 import com.alibaba.dubbo.rpc.RpcInvocation;
 import com.alibaba.dubbo.rpc.cluster.Router;
 import com.alibaba.dubbo.rpc.cluster.router.MockInvoker;
-
 import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;

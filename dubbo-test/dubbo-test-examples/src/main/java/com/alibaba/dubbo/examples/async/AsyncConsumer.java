@@ -18,7 +18,6 @@ package com.alibaba.dubbo.examples.async;
 
 import com.alibaba.dubbo.examples.async.api.AsyncService;
 import com.alibaba.dubbo.rpc.RpcContext;
-
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.concurrent.Callable;

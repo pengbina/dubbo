@@ -17,7 +17,6 @@
 package com.alibaba.dubbo.examples.merge;
 
 import com.alibaba.dubbo.examples.merge.api.MergeService;
-
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.List;

@@ -18,7 +18,6 @@ package com.alibaba.dubbo.config.spring.status;
 
 import com.alibaba.dubbo.common.status.Status;
 import com.alibaba.dubbo.config.spring.ServiceBean;
-
 import com.alibaba.dubbo.config.spring.extension.SpringExtensionFactory;
 import org.junit.After;
 import org.junit.Before;

@@ -17,7 +17,6 @@
 package com.alibaba.dubbo.examples.rest.impl;
 
 import com.alibaba.dubbo.examples.rest.api.User;
-
 import org.springframework.stereotype.Service;
 
 import java.util.concurrent.atomic.AtomicLong;

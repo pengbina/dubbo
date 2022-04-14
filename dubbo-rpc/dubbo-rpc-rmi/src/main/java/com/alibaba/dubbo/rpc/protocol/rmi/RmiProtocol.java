@@ -21,7 +21,6 @@ import com.alibaba.dubbo.common.URL;
 import com.alibaba.dubbo.common.Version;
 import com.alibaba.dubbo.rpc.RpcException;
 import com.alibaba.dubbo.rpc.protocol.AbstractProxyProtocol;
-
 import org.aopalliance.intercept.MethodInvocation;
 import org.springframework.remoting.RemoteAccessException;
 import org.springframework.remoting.rmi.RmiProxyFactoryBean;

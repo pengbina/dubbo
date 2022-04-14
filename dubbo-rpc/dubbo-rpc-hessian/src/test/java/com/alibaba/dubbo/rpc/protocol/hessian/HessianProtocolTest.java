@@ -25,14 +25,8 @@ import com.alibaba.dubbo.common.serialize.ObjectInput;
 import com.alibaba.dubbo.common.serialize.ObjectOutput;
 import com.alibaba.dubbo.common.serialize.Serialization;
 import com.alibaba.dubbo.common.serialize.nativejava.NativeJavaSerialization;
-import com.alibaba.dubbo.rpc.Exporter;
-import com.alibaba.dubbo.rpc.Invoker;
-import com.alibaba.dubbo.rpc.Protocol;
-import com.alibaba.dubbo.rpc.ProxyFactory;
-import com.alibaba.dubbo.rpc.RpcContext;
-import com.alibaba.dubbo.rpc.RpcException;
+import com.alibaba.dubbo.rpc.*;
 import com.alibaba.dubbo.rpc.protocol.hessian.HessianServiceImpl.MyException;
-
 import com.alibaba.dubbo.rpc.service.GenericService;
 import org.junit.Assert;
 import org.junit.Before;

@@ -20,7 +20,6 @@ import com.alibaba.dubbo.config.spring.api.DemoService;
 import com.alibaba.dubbo.config.spring.api.HelloService;
 import com.alibaba.dubbo.config.spring.impl.DemoServiceImpl;
 import com.alibaba.dubbo.config.spring.impl.HelloServiceImpl;
-
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;

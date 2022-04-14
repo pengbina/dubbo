@@ -22,7 +22,6 @@ import com.alibaba.dubbo.common.URL;
 import com.alibaba.dubbo.common.utils.NetUtils;
 import com.alibaba.dubbo.rpc.RpcException;
 import com.alibaba.dubbo.rpc.protocol.dubbo.support.ProtocolUtils;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;

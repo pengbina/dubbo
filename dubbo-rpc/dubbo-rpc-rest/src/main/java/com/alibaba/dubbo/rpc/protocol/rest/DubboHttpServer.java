@@ -24,7 +24,6 @@ import com.alibaba.dubbo.remoting.http.servlet.BootstrapListener;
 import com.alibaba.dubbo.remoting.http.servlet.ServletManager;
 import com.alibaba.dubbo.rpc.RpcContext;
 import com.alibaba.dubbo.rpc.RpcException;
-
 import org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher;
 import org.jboss.resteasy.spi.ResteasyDeployment;
 

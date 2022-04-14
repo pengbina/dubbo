@@ -17,7 +17,6 @@
 package com.alibaba.dubbo.remoting.transport.codec;
 
 import com.alibaba.dubbo.remoting.codec.ExchangeCodecTest;
-
 import org.junit.Before;
 
 public class CodecAdapterTest extends ExchangeCodecTest {

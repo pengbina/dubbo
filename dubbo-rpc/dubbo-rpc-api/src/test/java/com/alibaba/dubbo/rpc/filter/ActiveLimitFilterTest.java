@@ -24,7 +24,6 @@ import com.alibaba.dubbo.rpc.RpcException;
 import com.alibaba.dubbo.rpc.support.BlockMyInvoker;
 import com.alibaba.dubbo.rpc.support.MockInvocation;
 import com.alibaba.dubbo.rpc.support.MyInvoker;
-
 import org.junit.Test;
 
 import java.util.concurrent.CountDownLatch;

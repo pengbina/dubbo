@@ -19,7 +19,6 @@ package com.alibaba.dubbo.rpc.protocol.thrift.ext;
 import com.alibaba.dubbo.common.logger.Logger;
 import com.alibaba.dubbo.common.logger.LoggerFactory;
 import com.alibaba.dubbo.rpc.protocol.thrift.ThriftCodec;
-
 import org.apache.thrift.TException;
 import org.apache.thrift.TProcessor;
 import org.apache.thrift.protocol.TBinaryProtocol;

@@ -18,33 +18,16 @@ package com.alibaba.dubbo.common.utils;
 
 import com.alibaba.dubbo.common.model.Person;
 import com.alibaba.dubbo.common.model.SerializablePerson;
-import com.alibaba.dubbo.common.model.person.BigPerson;
-import com.alibaba.dubbo.common.model.person.FullAddress;
-import com.alibaba.dubbo.common.model.person.PersonInfo;
-import com.alibaba.dubbo.common.model.person.PersonStatus;
-import com.alibaba.dubbo.common.model.person.Phone;
-
+import com.alibaba.dubbo.common.model.person.*;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class PojoUtilsTest {
 

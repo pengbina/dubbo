@@ -19,11 +19,7 @@ package com.alibaba.dubbo.common.utils;
 import com.alibaba.dubbo.common.Constants;
 import com.alibaba.dubbo.common.URL;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class UrlUtils {
 

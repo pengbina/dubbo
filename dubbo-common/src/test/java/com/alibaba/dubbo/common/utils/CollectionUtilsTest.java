@@ -18,27 +18,14 @@ package com.alibaba.dubbo.common.utils;
 
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-import static com.alibaba.dubbo.common.utils.CollectionUtils.isEmpty;
-import static com.alibaba.dubbo.common.utils.CollectionUtils.isNotEmpty;
-import static com.alibaba.dubbo.common.utils.CollectionUtils.toMap;
-import static com.alibaba.dubbo.common.utils.CollectionUtils.toStringMap;
+import static com.alibaba.dubbo.common.utils.CollectionUtils.*;
 import static java.util.Collections.emptyList;
 import static java.util.Collections.singleton;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class CollectionUtilsTest {
     @Test

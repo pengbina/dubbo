@@ -20,7 +20,6 @@ import com.alibaba.dubbo.common.URL;
 import com.alibaba.dubbo.rpc.gen.dubbo.$__DemoStub;
 import com.alibaba.dubbo.rpc.gen.dubbo.Demo;
 import com.alibaba.dubbo.rpc.protocol.thrift.ext.MultiServiceProcessor;
-
 import org.apache.thrift.protocol.TBinaryProtocol;
 import org.apache.thrift.server.TThreadPoolServer;
 import org.apache.thrift.transport.TServerSocket;

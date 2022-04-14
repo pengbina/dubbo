@@ -19,7 +19,6 @@ package com.alibaba.dubbo.rpc.protocol.dubbo.telnet;
 import com.alibaba.dubbo.remoting.Channel;
 import com.alibaba.dubbo.remoting.RemotingException;
 import com.alibaba.dubbo.remoting.telnet.TelnetHandler;
-
 import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;

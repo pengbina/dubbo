@@ -25,7 +25,6 @@ import com.alibaba.dubbo.rpc.Invoker;
 import com.alibaba.dubbo.rpc.RpcContext;
 import com.alibaba.dubbo.rpc.StaticContext;
 import com.alibaba.dubbo.rpc.protocol.dubbo.support.ProtocolUtils;
-
 import junit.framework.Assert;
 import org.junit.After;
 import org.junit.Before;

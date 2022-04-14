@@ -22,7 +22,6 @@ import com.alibaba.dubbo.common.logger.LoggerFactory;
 import com.alibaba.dubbo.common.status.Status;
 import com.alibaba.dubbo.common.status.StatusChecker;
 import com.alibaba.dubbo.config.spring.extension.SpringExtensionFactory;
-
 import org.springframework.context.ApplicationContext;
 
 import javax.sql.DataSource;

@@ -20,7 +20,6 @@ import com.alibaba.dubbo.common.Constants;
 import com.alibaba.dubbo.common.URL;
 import com.alibaba.dubbo.common.utils.CollectionUtils;
 import com.alibaba.dubbo.registry.NotifyListener;
-
 import org.junit.Before;
 import org.junit.Test;
 

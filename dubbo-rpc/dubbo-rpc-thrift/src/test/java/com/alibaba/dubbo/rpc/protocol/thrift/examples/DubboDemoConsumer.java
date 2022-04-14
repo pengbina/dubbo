@@ -17,7 +17,6 @@
 package com.alibaba.dubbo.rpc.protocol.thrift.examples;
 
 import com.alibaba.dubbo.rpc.gen.thrift.Demo;
-
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class DubboDemoConsumer {

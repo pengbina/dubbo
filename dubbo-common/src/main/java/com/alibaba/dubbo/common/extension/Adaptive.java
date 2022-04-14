@@ -18,17 +18,18 @@ package com.alibaba.dubbo.common.extension;
 
 import com.alibaba.dubbo.common.URL;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 
 /**
  * Provide helpful information for {@link ExtensionLoader} to inject dependency extension instance.
  *
  * @see ExtensionLoader
  * @see URL
+ *
+ * 该注解可以使用在类，接口，枚举，方法上面，如果标注在接口的方法上时，可以根据参数动态获取实现类，
+ * 在第一次getExtension时，会自动生成和编译一个动态的Adaptive，达到动态实现类的效果。
+ * 如果标注在实现类上的时候主要是为了直接固定对应的实现而不需要动态生成代码实现。
+ * 该注解有一个参数value,是个string数组类型，表示可以通过多个元素依次查找实现类。
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)

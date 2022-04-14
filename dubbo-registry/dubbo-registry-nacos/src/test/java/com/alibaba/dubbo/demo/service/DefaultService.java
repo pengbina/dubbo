@@ -18,7 +18,6 @@ package com.alibaba.dubbo.demo.service;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.alibaba.dubbo.rpc.RpcContext;
-
 import org.springframework.beans.factory.annotation.Value;
 
 

@@ -30,7 +30,6 @@ import com.alibaba.dubbo.rpc.RpcException;
 import com.alibaba.dubbo.rpc.RpcInvocation;
 import com.alibaba.dubbo.rpc.RpcResult;
 import com.alibaba.dubbo.rpc.protocol.thrift.io.RandomAccessByteArrayOutputStream;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.thrift.TApplicationException;
 import org.apache.thrift.TBase;

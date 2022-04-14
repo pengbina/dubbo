@@ -24,7 +24,6 @@ import com.alibaba.dubbo.rpc.Invoker;
 import com.alibaba.dubbo.rpc.Protocol;
 import com.alibaba.dubbo.rpc.ProxyFactory;
 import com.alibaba.dubbo.rpc.service.GenericService;
-
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;

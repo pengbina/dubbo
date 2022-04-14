@@ -19,7 +19,6 @@ package com.alibaba.dubbo.rpc.cluster.configurator.override;
 import com.alibaba.dubbo.common.URL;
 import com.alibaba.dubbo.common.utils.NetUtils;
 import com.alibaba.dubbo.rpc.cluster.configurator.absent.AbsentConfigurator;
-
 import junit.framework.Assert;
 import org.junit.Test;
 

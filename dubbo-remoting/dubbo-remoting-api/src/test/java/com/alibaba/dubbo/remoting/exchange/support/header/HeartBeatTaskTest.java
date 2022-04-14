@@ -21,7 +21,6 @@ import com.alibaba.dubbo.common.Constants;
 import com.alibaba.dubbo.common.URL;
 import com.alibaba.dubbo.remoting.Channel;
 import com.alibaba.dubbo.remoting.exchange.Request;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

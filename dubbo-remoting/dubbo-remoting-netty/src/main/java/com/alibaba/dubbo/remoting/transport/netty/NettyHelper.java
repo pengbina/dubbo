@@ -18,7 +18,6 @@ package com.alibaba.dubbo.remoting.transport.netty;
 
 import com.alibaba.dubbo.common.logger.Logger;
 import com.alibaba.dubbo.common.logger.LoggerFactory;
-
 import org.jboss.netty.logging.AbstractInternalLogger;
 import org.jboss.netty.logging.InternalLogger;
 import org.jboss.netty.logging.InternalLoggerFactory;

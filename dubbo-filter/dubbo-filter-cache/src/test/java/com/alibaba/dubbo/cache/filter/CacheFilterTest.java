@@ -33,7 +33,7 @@ import org.junit.runners.Parameterized;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.runners.Parameterized.*;
+import static org.junit.runners.Parameterized.Parameters;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 

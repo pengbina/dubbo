@@ -26,7 +26,6 @@ import com.alibaba.dubbo.remoting.RemotingException;
 import com.alibaba.dubbo.remoting.Server;
 import com.alibaba.dubbo.remoting.exchange.Exchangers;
 import com.alibaba.dubbo.remoting.exchange.support.ExchangeHandlerAdapter;
-
 import org.apache.log4j.Level;
 import org.junit.Assert;
 import org.junit.Before;

@@ -20,15 +20,8 @@ package com.alibaba.dubbo.common.utils;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import static com.alibaba.dubbo.common.utils.ClassHelper.forName;
-import static com.alibaba.dubbo.common.utils.ClassHelper.getCallerClassLoader;
-import static com.alibaba.dubbo.common.utils.ClassHelper.getClassLoader;
-import static com.alibaba.dubbo.common.utils.ClassHelper.resolvePrimitiveClassName;
-import static com.alibaba.dubbo.common.utils.ClassHelper.toShortString;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.sameInstance;
-import static org.hamcrest.Matchers.startsWith;
+import static com.alibaba.dubbo.common.utils.ClassHelper.*;
+import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.verify;
 

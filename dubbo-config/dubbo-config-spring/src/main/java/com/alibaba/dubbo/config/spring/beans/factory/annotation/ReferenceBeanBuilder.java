@@ -22,7 +22,6 @@ import com.alibaba.dubbo.config.MethodConfig;
 import com.alibaba.dubbo.config.annotation.Method;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.dubbo.config.spring.ReferenceBean;
-
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.util.Assert;

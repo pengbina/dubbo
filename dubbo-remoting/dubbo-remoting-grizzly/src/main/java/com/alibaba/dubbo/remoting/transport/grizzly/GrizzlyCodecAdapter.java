@@ -24,7 +24,6 @@ import com.alibaba.dubbo.remoting.Codec2;
 import com.alibaba.dubbo.remoting.buffer.ChannelBuffer;
 import com.alibaba.dubbo.remoting.buffer.ChannelBuffers;
 import com.alibaba.dubbo.remoting.buffer.DynamicChannelBuffer;
-
 import org.glassfish.grizzly.Buffer;
 import org.glassfish.grizzly.Connection;
 import org.glassfish.grizzly.filterchain.BaseFilter;

@@ -30,15 +30,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.regex.Pattern;
@@ -508,6 +500,7 @@ public class ExtensionLoader<T> {
         }
     }
 
+    //注入扩展
     private T injectExtension(T instance) {
         try {
             if (objectFactory != null) {
@@ -517,12 +510,19 @@ public class ExtensionLoader<T> {
                             && Modifier.isPublic(method.getModifiers())) {
                         /**
                          * Check {@link DisableInject} to see if we need auto injection for this property
+                         *方法上面有@DisableInject注解，表示不想自动注入
                          */
                         if (method.getAnnotation(DisableInject.class) != null) {
                             continue;
                         }
                         Class<?> pt = method.getParameterTypes()[0];
                         try {
+                            /**
+                             * 判断 方法名的长度 > 3
+                             * 然后将第4个字符转成小写然后拼接后面的字符
+                             * 比如说setName
+                             * 获取到的property就是name
+                             */
                             String property = method.getName().length() > 3 ? method.getName().substring(3, 4).toLowerCase() + method.getName().substring(4) : "";
                             Object object = objectFactory.getExtension(pt, property);
                             if (object != null) {
@@ -554,6 +554,7 @@ public class ExtensionLoader<T> {
 
     private Map<String, Class<?>> getExtensionClasses() {
         Map<String, Class<?>> classes = cachedClasses.get();
+        //之前没有加载过
         if (classes == null) {
             synchronized (cachedClasses) {
                 classes = cachedClasses.get();
@@ -568,8 +569,10 @@ public class ExtensionLoader<T> {
 
     // synchronized in getExtensionClasses
     private Map<String, Class<?>> loadExtensionClasses() {
+        //获取到接口上面的spi 注解信息
         final SPI defaultAnnotation = type.getAnnotation(SPI.class);
         if (defaultAnnotation != null) {
+            //拿到spi注解上默认的值
             String value = defaultAnnotation.value();
             if ((value = value.trim()).length() > 0) {
                 String[] names = NAME_SEPARATOR.split(value);
@@ -577,13 +580,18 @@ public class ExtensionLoader<T> {
                     throw new IllegalStateException("more than 1 default extension name on extension " + type.getName()
                             + ": " + Arrays.toString(names));
                 }
+                //将默认实现类的名字缓存起来
                 if (names.length == 1) cachedDefaultName = names[0];
             }
         }
 
         Map<String, Class<?>> extensionClasses = new HashMap<String, Class<?>>();
+        //去下面的这3个位置找扩展配置文件
+        //META-INF/dubbo/internal/
         loadDirectory(extensionClasses, DUBBO_INTERNAL_DIRECTORY);
+        //META-INF/dubbo/
         loadDirectory(extensionClasses, DUBBO_DIRECTORY);
+        //META-INF/services/ 兼容jdk spi
         loadDirectory(extensionClasses, SERVICES_DIRECTORY);
         return extensionClasses;
     }
@@ -592,7 +600,9 @@ public class ExtensionLoader<T> {
         String fileName = dir + type.getName();
         try {
             Enumeration<java.net.URL> urls;
+            //获取classloader
             ClassLoader classLoader = findClassLoader();
+            //使用类加载器获取Enumberation<java.net.URL> urls
             if (classLoader != null) {
                 urls = classLoader.getResources(fileName);
             } else {
@@ -612,10 +622,12 @@ public class ExtensionLoader<T> {
 
     private void loadResource(Map<String, Class<?>> extensionClasses, ClassLoader classLoader, java.net.URL resourceURL) {
         try {
+            // 使用reader读取文件，按照约定一行一行读取
             BufferedReader reader = new BufferedReader(new InputStreamReader(resourceURL.openStream(), "utf-8"));
             try {
                 String line;
                 while ((line = reader.readLine()) != null) {
+                    //处理注释问题
                     final int ci = line.indexOf('#');
                     if (ci >= 0) line = line.substring(0, ci);
                     line = line.trim();
@@ -624,10 +636,19 @@ public class ExtensionLoader<T> {
                             String name = null;
                             int i = line.indexOf('=');
                             if (i > 0) {
+                                //分割name跟实现类
+                                //名字
                                 name = line.substring(0, i).trim();
+                                //实现类
                                 line = line.substring(i + 1).trim();
                             }
                             if (line.length() > 0) {
+                                /**
+                                 * extensionClasses：存储扩展的map,整个查找扩展这块就是使用这个map
+                                 * resourceURl:资源url
+                                 * Class.forName(line,true,classLoader):实现类class
+                                 * name:实现类的名字
+                                 */
                                 loadClass(extensionClasses, resourceURL, Class.forName(line, true, classLoader), name);
                             }
                         } catch (Throwable t) {

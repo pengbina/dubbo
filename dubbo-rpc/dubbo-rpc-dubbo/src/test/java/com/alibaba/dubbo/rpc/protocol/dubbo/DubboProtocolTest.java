@@ -23,14 +23,8 @@ import com.alibaba.dubbo.common.extension.ExtensionLoader;
 import com.alibaba.dubbo.rpc.Protocol;
 import com.alibaba.dubbo.rpc.ProxyFactory;
 import com.alibaba.dubbo.rpc.RpcException;
-import com.alibaba.dubbo.rpc.protocol.dubbo.support.DemoService;
-import com.alibaba.dubbo.rpc.protocol.dubbo.support.DemoServiceImpl;
-import com.alibaba.dubbo.rpc.protocol.dubbo.support.NonSerialized;
-import com.alibaba.dubbo.rpc.protocol.dubbo.support.RemoteService;
-import com.alibaba.dubbo.rpc.protocol.dubbo.support.RemoteServiceImpl;
-import com.alibaba.dubbo.rpc.protocol.dubbo.support.Type;
+import com.alibaba.dubbo.rpc.protocol.dubbo.support.*;
 import com.alibaba.dubbo.rpc.service.EchoService;
-
 import junit.framework.Assert;
 import org.junit.Test;
 

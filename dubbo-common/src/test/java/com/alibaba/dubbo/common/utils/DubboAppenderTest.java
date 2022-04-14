@@ -17,8 +17,6 @@
 
 package com.alibaba.dubbo.common.utils;
 
-import com.alibaba.dubbo.common.utils.DubboAppender;
-import com.alibaba.dubbo.common.utils.Log;
 import org.apache.log4j.Category;
 import org.apache.log4j.Level;
 import org.apache.log4j.spi.LoggingEvent;
@@ -27,9 +25,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
 
 public class DubboAppenderTest {

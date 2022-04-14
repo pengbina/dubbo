@@ -18,9 +18,6 @@ package com.alibaba.dubbo.common.serialize.fastjson;
 
 import com.alibaba.dubbo.common.serialize.ObjectInput;
 import com.alibaba.dubbo.common.serialize.ObjectOutput;
-import com.alibaba.dubbo.common.serialize.fastjson.FastJsonObjectInput;
-import com.alibaba.dubbo.common.serialize.fastjson.FastJsonObjectOutput;
-import com.alibaba.dubbo.common.serialize.fastjson.FastJsonSerialization;
 import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;

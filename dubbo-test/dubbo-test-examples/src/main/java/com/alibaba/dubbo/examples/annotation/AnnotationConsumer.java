@@ -18,7 +18,6 @@ package com.alibaba.dubbo.examples.annotation;
 
 import com.alibaba.dubbo.config.spring.context.annotation.EnableDubbo;
 import com.alibaba.dubbo.examples.annotation.action.AnnotationAction;
-
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;

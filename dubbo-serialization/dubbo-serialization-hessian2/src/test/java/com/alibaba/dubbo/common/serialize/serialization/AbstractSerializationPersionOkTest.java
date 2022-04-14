@@ -17,15 +17,9 @@
 package com.alibaba.dubbo.common.serialize.serialization;
 
 import com.alibaba.dubbo.common.model.Person;
-
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public abstract class AbstractSerializationPersionOkTest extends AbstractSerializationTest {
     @Test

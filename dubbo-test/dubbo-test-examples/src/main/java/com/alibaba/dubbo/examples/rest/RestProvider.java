@@ -17,7 +17,6 @@
 package com.alibaba.dubbo.examples.rest;
 
 import com.alibaba.dubbo.config.spring.context.annotation.EnableDubbo;
-
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 

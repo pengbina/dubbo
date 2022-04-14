@@ -22,7 +22,6 @@ import com.alibaba.dubbo.config.ConsumerConfig;
 import com.alibaba.dubbo.config.ProtocolConfig;
 import com.alibaba.dubbo.config.RegistryConfig;
 import com.alibaba.dubbo.config.spring.beans.factory.config.YamlPropertySourceFactory;
-
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

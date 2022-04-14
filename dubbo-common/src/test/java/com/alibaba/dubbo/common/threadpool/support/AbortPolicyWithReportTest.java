@@ -17,7 +17,6 @@
 package com.alibaba.dubbo.common.threadpool.support;
 
 import com.alibaba.dubbo.common.URL;
-import com.alibaba.dubbo.common.threadpool.support.AbortPolicyWithReport;
 import org.junit.Test;
 
 import java.util.concurrent.Executors;

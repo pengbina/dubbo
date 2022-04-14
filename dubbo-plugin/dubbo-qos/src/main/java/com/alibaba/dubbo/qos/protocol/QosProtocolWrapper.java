@@ -28,9 +28,7 @@ import com.alibaba.dubbo.rpc.RpcException;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import static com.alibaba.dubbo.common.Constants.ACCEPT_FOREIGN_IP;
-import static com.alibaba.dubbo.common.Constants.QOS_ENABLE;
-import static com.alibaba.dubbo.common.Constants.QOS_PORT;
+import static com.alibaba.dubbo.common.Constants.*;
 import static com.alibaba.dubbo.qos.common.QosConstants.DEFAULT_PORT;
 
 public class QosProtocolWrapper implements Protocol {

@@ -17,7 +17,6 @@
 package com.alibaba.dubbo.config.spring;
 
 import com.alibaba.dubbo.config.annotation.Service;
-
 import org.junit.Assert;
 import org.junit.Test;
 

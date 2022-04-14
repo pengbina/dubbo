@@ -21,7 +21,6 @@ import com.alibaba.dubbo.remoting.RemotingException;
 import com.alibaba.dubbo.remoting.Server;
 import com.alibaba.dubbo.remoting.exchange.ExchangeChannel;
 import com.alibaba.dubbo.remoting.exchange.Exchangers;
-
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;

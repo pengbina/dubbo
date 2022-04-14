@@ -23,7 +23,6 @@ import com.alibaba.dubbo.rpc.ProxyFactory;
 import com.alibaba.dubbo.rpc.protocol.dubbo.support.DemoService;
 import com.alibaba.dubbo.rpc.protocol.dubbo.support.DemoServiceImpl;
 import com.alibaba.dubbo.rpc.service.EchoService;
-
 import junit.framework.TestCase;
 
 public class RpcFilterTest extends TestCase {

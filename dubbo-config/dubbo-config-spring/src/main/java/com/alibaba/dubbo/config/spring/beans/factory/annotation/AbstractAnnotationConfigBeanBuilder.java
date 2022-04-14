@@ -16,12 +16,7 @@
  */
 package com.alibaba.dubbo.config.spring.beans.factory.annotation;
 
-import com.alibaba.dubbo.config.AbstractInterfaceConfig;
-import com.alibaba.dubbo.config.ApplicationConfig;
-import com.alibaba.dubbo.config.ModuleConfig;
-import com.alibaba.dubbo.config.MonitorConfig;
-import com.alibaba.dubbo.config.RegistryConfig;
-
+import com.alibaba.dubbo.config.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.context.ApplicationContext;

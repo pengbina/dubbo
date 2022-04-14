@@ -20,11 +20,7 @@ import com.alibaba.dubbo.common.Constants;
 import com.alibaba.dubbo.common.URL;
 import com.alibaba.dubbo.common.extension.ExtensionLoader;
 import com.alibaba.dubbo.common.extensionloader.activate.ActivateExt1;
-import com.alibaba.dubbo.common.extensionloader.activate.impl.ActivateExt1Impl1;
-import com.alibaba.dubbo.common.extensionloader.activate.impl.GroupActivateExtImpl;
-import com.alibaba.dubbo.common.extensionloader.activate.impl.OrderActivateExtImpl1;
-import com.alibaba.dubbo.common.extensionloader.activate.impl.OrderActivateExtImpl2;
-import com.alibaba.dubbo.common.extensionloader.activate.impl.ValueActivateExtImpl;
+import com.alibaba.dubbo.common.extensionloader.activate.impl.*;
 import com.alibaba.dubbo.common.extensionloader.ext1.SimpleExt;
 import com.alibaba.dubbo.common.extensionloader.ext1.impl.SimpleExtImpl1;
 import com.alibaba.dubbo.common.extensionloader.ext1.impl.SimpleExtImpl2;
@@ -37,18 +33,11 @@ import com.alibaba.dubbo.common.extensionloader.ext8_add.AddExt1;
 import com.alibaba.dubbo.common.extensionloader.ext8_add.AddExt2;
 import com.alibaba.dubbo.common.extensionloader.ext8_add.AddExt3;
 import com.alibaba.dubbo.common.extensionloader.ext8_add.AddExt4;
-import com.alibaba.dubbo.common.extensionloader.ext8_add.impl.AddExt1Impl1;
-import com.alibaba.dubbo.common.extensionloader.ext8_add.impl.AddExt1_ManualAdaptive;
-import com.alibaba.dubbo.common.extensionloader.ext8_add.impl.AddExt1_ManualAdd1;
-import com.alibaba.dubbo.common.extensionloader.ext8_add.impl.AddExt1_ManualAdd2;
-import com.alibaba.dubbo.common.extensionloader.ext8_add.impl.AddExt2_ManualAdaptive;
-import com.alibaba.dubbo.common.extensionloader.ext8_add.impl.AddExt3_ManualAdaptive;
-import com.alibaba.dubbo.common.extensionloader.ext8_add.impl.AddExt4_ManualAdaptive;
+import com.alibaba.dubbo.common.extensionloader.ext8_add.impl.*;
 import com.alibaba.dubbo.common.extensionloader.ext9_empty.Ext9Empty;
 import com.alibaba.dubbo.common.extensionloader.ext9_empty.impl.Ext9EmptyImpl;
 import com.alibaba.dubbo.common.extensionloader.injection.InjectExt;
 import com.alibaba.dubbo.common.extensionloader.injection.impl.InjectExtImpl;
-
 import junit.framework.Assert;
 import org.junit.Test;
 
@@ -56,15 +45,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static org.hamcrest.CoreMatchers.allOf;
-import static org.hamcrest.CoreMatchers.anyOf;
-import static org.hamcrest.CoreMatchers.instanceOf;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.*;
 import static org.junit.matchers.JUnitMatchers.containsString;
 
 public class ExtensionLoaderTest {

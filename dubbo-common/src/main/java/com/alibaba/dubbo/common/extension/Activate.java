@@ -18,11 +18,7 @@ package com.alibaba.dubbo.common.extension;
 
 import com.alibaba.dubbo.common.URL;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 
 /**
  * Activate. This annotation is useful for automatically activate certain extensions with the given criteria,
@@ -38,6 +34,15 @@ import java.lang.annotation.Target;
  * @see SPI
  * @see URL
  * @see ExtensionLoader
+ *
+ * 该注解可以标记在类，接口，枚举和方法上，主要使用在有多个扩展点实现，需要根据不同条件激活的场景中，
+ * 比如说Filter需要多个同时激活
+ * @Activate参数解释：
+ * group 表示URL中的分组如果匹配的话就激活，可以设置多个
+ * value 查找URL中如果含有该key值，就会激活
+ * before 填写扩展点列表，表示哪些扩展点需要在本扩展点的前面
+ * after 表示哪些扩展点需要在本扩展点的后面
+ * order 排序信息
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)

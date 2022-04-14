@@ -18,7 +18,6 @@ package com.alibaba.dubbo.config.spring.extension;
 
 import com.alibaba.dubbo.config.spring.api.DemoService;
 import com.alibaba.dubbo.config.spring.impl.DemoServiceImpl;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

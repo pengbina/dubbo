@@ -18,16 +18,10 @@ package com.alibaba.dubbo.common.serialize.serialization;
 
 import com.alibaba.dubbo.common.model.Person;
 import com.alibaba.dubbo.common.serialize.ObjectOutput;
-
 import org.junit.Test;
 
 import java.io.NotSerializableException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;

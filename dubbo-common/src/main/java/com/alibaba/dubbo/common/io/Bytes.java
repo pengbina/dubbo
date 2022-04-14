@@ -18,11 +18,7 @@ package com.alibaba.dubbo.common.io;
 
 import com.alibaba.dubbo.common.utils.IOUtils;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Map;

@@ -19,7 +19,6 @@ package com.alibaba.dubbo.remoting.transport.netty4;
 import com.alibaba.dubbo.common.URL;
 import com.alibaba.dubbo.common.utils.StringUtils;
 import com.alibaba.dubbo.remoting.ChannelHandler;
-
 import com.alibaba.dubbo.remoting.exchange.Request;
 import com.alibaba.dubbo.remoting.exchange.Response;
 import io.netty.channel.ChannelDuplexHandler;

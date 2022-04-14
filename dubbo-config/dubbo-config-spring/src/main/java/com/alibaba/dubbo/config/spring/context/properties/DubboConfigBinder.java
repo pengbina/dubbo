@@ -17,7 +17,6 @@
 package com.alibaba.dubbo.config.spring.context.properties;
 
 import com.alibaba.dubbo.config.AbstractConfig;
-
 import org.springframework.context.EnvironmentAware;
 
 /**

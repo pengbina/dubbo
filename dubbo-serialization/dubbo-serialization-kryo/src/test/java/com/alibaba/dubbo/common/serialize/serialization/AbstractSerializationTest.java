@@ -26,15 +26,10 @@ import com.alibaba.dubbo.common.model.media.Image.Size;
 import com.alibaba.dubbo.common.model.media.Media;
 import com.alibaba.dubbo.common.model.media.Media.Player;
 import com.alibaba.dubbo.common.model.media.MediaContent;
-import com.alibaba.dubbo.common.model.person.BigPerson;
-import com.alibaba.dubbo.common.model.person.FullAddress;
-import com.alibaba.dubbo.common.model.person.PersonInfo;
-import com.alibaba.dubbo.common.model.person.PersonStatus;
-import com.alibaba.dubbo.common.model.person.Phone;
+import com.alibaba.dubbo.common.model.person.*;
 import com.alibaba.dubbo.common.serialize.ObjectInput;
 import com.alibaba.dubbo.common.serialize.ObjectOutput;
 import com.alibaba.dubbo.common.serialize.Serialization;
-
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
@@ -43,23 +38,9 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.Time;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 public abstract class AbstractSerializationTest {
     static Random random = new Random();

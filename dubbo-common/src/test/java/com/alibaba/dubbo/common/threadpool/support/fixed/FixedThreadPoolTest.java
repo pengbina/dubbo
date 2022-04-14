@@ -22,21 +22,12 @@ import com.alibaba.dubbo.common.URL;
 import com.alibaba.dubbo.common.threadlocal.InternalThread;
 import com.alibaba.dubbo.common.threadpool.ThreadPool;
 import com.alibaba.dubbo.common.threadpool.support.AbortPolicyWithReport;
-import com.alibaba.dubbo.common.threadpool.support.limited.LimitedThreadPool;
 import org.hamcrest.Matchers;
 import org.junit.Test;
 
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.RejectedExecutionHandler;
-import java.util.concurrent.SynchronousQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
-import static org.hamcrest.Matchers.instanceOf;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.startsWith;
+import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
 
 public class FixedThreadPoolTest {

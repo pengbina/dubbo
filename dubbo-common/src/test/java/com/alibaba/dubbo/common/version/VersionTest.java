@@ -18,7 +18,6 @@ package com.alibaba.dubbo.common.version;
 
 
 import com.alibaba.dubbo.common.Version;
-
 import org.junit.Assert;
 import org.junit.Test;
 

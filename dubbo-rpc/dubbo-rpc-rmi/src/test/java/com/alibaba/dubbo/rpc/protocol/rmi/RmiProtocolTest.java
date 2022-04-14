@@ -24,7 +24,6 @@ import com.alibaba.dubbo.rpc.Protocol;
 import com.alibaba.dubbo.rpc.ProxyFactory;
 import com.alibaba.dubbo.rpc.RpcException;
 import com.alibaba.dubbo.rpc.service.EchoService;
-
 import org.junit.Ignore;
 import org.junit.Test;
 

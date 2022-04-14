@@ -17,7 +17,6 @@
 package com.alibaba.dubbo.common.serialize.fst;
 
 import com.alibaba.dubbo.common.serialize.ObjectOutput;
-
 import org.nustaq.serialization.FSTObjectOutput;
 
 import java.io.IOException;

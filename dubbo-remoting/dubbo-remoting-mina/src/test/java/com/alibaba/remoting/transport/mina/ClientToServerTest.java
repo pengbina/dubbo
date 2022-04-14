@@ -21,7 +21,6 @@ import com.alibaba.dubbo.remoting.exchange.ExchangeChannel;
 import com.alibaba.dubbo.remoting.exchange.ExchangeServer;
 import com.alibaba.dubbo.remoting.exchange.ResponseFuture;
 import com.alibaba.dubbo.remoting.exchange.support.Replier;
-
 import junit.framework.Assert;
 import junit.framework.TestCase;
 import org.junit.Test;

@@ -21,7 +21,6 @@ import com.alibaba.dubbo.remoting.RemotingException;
 import com.alibaba.dubbo.remoting.exchange.Request;
 import com.alibaba.dubbo.remoting.exchange.Response;
 import com.alibaba.dubbo.remoting.transport.dispatcher.connection.ConnectionOrderedChannelHandler;
-
 import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Ignore;

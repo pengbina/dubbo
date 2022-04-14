@@ -21,7 +21,6 @@ import com.alibaba.dubbo.common.extension.ExtensionLoader;
 import com.alibaba.dubbo.common.threadpool.ThreadPool;
 import com.alibaba.dubbo.common.threadpool.support.AbortPolicyWithReport;
 import com.alibaba.dubbo.common.utils.NamedThreadFactory;
-
 import org.junit.Assert;
 import org.junit.Test;
 

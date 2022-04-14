@@ -16,7 +16,6 @@
  */
 package com.alibaba.dubbo.common.serialize.fst;
 
-import com.alibaba.dubbo.common.serialize.fst.model.AnimalEnum;
 import com.alibaba.dubbo.common.serialize.fst.model.FullAddress;
 import org.junit.Test;
 
@@ -24,7 +23,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 public class FstObjectInputTest {
     private FstObjectInput fstObjectInput;

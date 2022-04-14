@@ -24,11 +24,7 @@ import com.alibaba.dubbo.registry.Registry;
 import com.alibaba.dubbo.registry.status.RegistryStatusChecker;
 import com.alibaba.dubbo.remoting.zookeeper.curator.CuratorZookeeperTransporter;
 import org.apache.curator.test.TestingServer;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.*;
 
 import java.util.List;
 import java.util.Map;

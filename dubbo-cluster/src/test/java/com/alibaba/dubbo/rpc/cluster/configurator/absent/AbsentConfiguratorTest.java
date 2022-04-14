@@ -18,7 +18,6 @@ package com.alibaba.dubbo.rpc.cluster.configurator.absent;
 
 import com.alibaba.dubbo.common.URL;
 import com.alibaba.dubbo.common.utils.NetUtils;
-
 import junit.framework.Assert;
 import org.junit.Test;
 

@@ -19,11 +19,7 @@ package com.alibaba.dubbo.remoting.zookeeper.curator;
 import com.alibaba.dubbo.common.URL;
 import com.alibaba.dubbo.common.utils.NetUtils;
 import org.apache.curator.test.TestingServer;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.*;
 
 import static org.hamcrest.core.Is.is;
 

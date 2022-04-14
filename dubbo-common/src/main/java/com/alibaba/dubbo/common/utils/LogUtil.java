@@ -18,7 +18,6 @@ package com.alibaba.dubbo.common.utils;
 
 import com.alibaba.dubbo.common.logger.Logger;
 import com.alibaba.dubbo.common.logger.LoggerFactory;
-
 import org.apache.log4j.Level;
 
 import java.util.Iterator;

@@ -23,7 +23,6 @@ import com.alibaba.dubbo.rpc.Filter;
 import com.alibaba.dubbo.rpc.support.DemoService;
 import com.alibaba.dubbo.rpc.support.MockInvocation;
 import com.alibaba.dubbo.rpc.support.MyInvoker;
-
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

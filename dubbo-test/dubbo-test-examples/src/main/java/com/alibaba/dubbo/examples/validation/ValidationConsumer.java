@@ -18,7 +18,6 @@ package com.alibaba.dubbo.examples.validation;
 
 import com.alibaba.dubbo.examples.validation.api.ValidationParameter;
 import com.alibaba.dubbo.examples.validation.api.ValidationService;
-
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import javax.validation.ConstraintViolation;

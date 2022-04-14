@@ -19,7 +19,6 @@ package com.alibaba.dubbo.config.url;
 
 import com.alibaba.dubbo.common.logger.Logger;
 import com.alibaba.dubbo.common.logger.LoggerFactory;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;

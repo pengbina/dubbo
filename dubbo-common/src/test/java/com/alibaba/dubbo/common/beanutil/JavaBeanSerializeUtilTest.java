@@ -16,24 +16,14 @@
  */
 package com.alibaba.dubbo.common.beanutil;
 
-import com.alibaba.dubbo.common.model.person.BigPerson;
-import com.alibaba.dubbo.common.model.person.FullAddress;
-import com.alibaba.dubbo.common.model.person.PersonInfo;
-import com.alibaba.dubbo.common.model.person.PersonStatus;
-import com.alibaba.dubbo.common.model.person.Phone;
+import com.alibaba.dubbo.common.model.person.*;
 import com.alibaba.dubbo.common.utils.PojoUtilsTest;
-
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.lang.reflect.Array;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 public class JavaBeanSerializeUtilTest {
 

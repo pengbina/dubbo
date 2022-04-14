@@ -18,7 +18,6 @@ package com.alibaba.dubbo.qos.command.decoder;
 
 import com.alibaba.dubbo.qos.command.CommandContext;
 import com.alibaba.dubbo.qos.command.CommandContextFactory;
-
 import org.apache.commons.lang3.StringUtils;
 
 public class TelnetCommandDecoder {

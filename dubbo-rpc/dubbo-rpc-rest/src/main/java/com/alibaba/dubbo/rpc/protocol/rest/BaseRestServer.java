@@ -19,7 +19,6 @@ package com.alibaba.dubbo.rpc.protocol.rest;
 import com.alibaba.dubbo.common.Constants;
 import com.alibaba.dubbo.common.URL;
 import com.alibaba.dubbo.common.utils.StringUtils;
-
 import org.jboss.resteasy.spi.ResteasyDeployment;
 
 public abstract class BaseRestServer implements RestServer {

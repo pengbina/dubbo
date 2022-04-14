@@ -18,7 +18,6 @@ package com.alibaba.dubbo.container.spring;
 
 import com.alibaba.dubbo.common.extension.ExtensionLoader;
 import com.alibaba.dubbo.container.Container;
-
 import org.junit.Assert;
 import org.junit.Test;
 

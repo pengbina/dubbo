@@ -25,7 +25,6 @@ import com.alibaba.dubbo.remoting.http.servlet.ServletManager;
 import com.alibaba.dubbo.rpc.RpcException;
 import com.alibaba.dubbo.rpc.StaticContext;
 import com.alibaba.dubbo.rpc.protocol.AbstractProxyProtocol;
-
 import org.apache.http.HeaderElement;
 import org.apache.http.HeaderElementIterator;
 import org.apache.http.HttpResponse;

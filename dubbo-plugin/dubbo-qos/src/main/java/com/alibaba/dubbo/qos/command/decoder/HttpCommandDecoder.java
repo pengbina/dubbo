@@ -18,7 +18,6 @@ package com.alibaba.dubbo.qos.command.decoder;
 
 import com.alibaba.dubbo.qos.command.CommandContext;
 import com.alibaba.dubbo.qos.command.CommandContextFactory;
-
 import io.netty.handler.codec.http.HttpMethod;
 import io.netty.handler.codec.http.HttpRequest;
 import io.netty.handler.codec.http.QueryStringDecoder;

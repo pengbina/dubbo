@@ -21,9 +21,7 @@ import com.alibaba.dubbo.common.serialize.hessian2.Hessian2SerializerFactory;
 import com.alibaba.dubbo.common.utils.ConfigUtils;
 import com.alibaba.dubbo.common.utils.StringUtils;
 
-import static com.alibaba.dubbo.common.serialize.hessian2.dubbo.Hessian2FactoryUtil.ALLOW;
-import static com.alibaba.dubbo.common.serialize.hessian2.dubbo.Hessian2FactoryUtil.DENY;
-import static com.alibaba.dubbo.common.serialize.hessian2.dubbo.Hessian2FactoryUtil.WHITELIST;
+import static com.alibaba.dubbo.common.serialize.hessian2.dubbo.Hessian2FactoryUtil.*;
 
 /**
  * see https://github.com/ebourg/hessian/commit/cf851f5131707891e723f7f6a9718c2461aed826

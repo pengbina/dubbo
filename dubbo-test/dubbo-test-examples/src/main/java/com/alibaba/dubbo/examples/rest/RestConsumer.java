@@ -19,7 +19,6 @@ package com.alibaba.dubbo.examples.rest;
 import com.alibaba.dubbo.examples.rest.api.User;
 import com.alibaba.dubbo.examples.rest.api.facade.AnotherUserRestService;
 import com.alibaba.dubbo.rpc.RpcContext;
-
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class RestConsumer {

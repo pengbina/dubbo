@@ -21,7 +21,6 @@ import com.alibaba.dubbo.common.utils.NetUtils;
 import com.alibaba.dubbo.remoting.Channel;
 import com.alibaba.dubbo.remoting.ChannelHandler;
 import com.alibaba.dubbo.remoting.RemotingException;
-
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;

@@ -25,7 +25,6 @@ import com.alibaba.dubbo.rpc.RpcInvocation;
 import com.alibaba.dubbo.rpc.RpcStatus;
 import com.alibaba.dubbo.rpc.cluster.LoadBalance;
 import com.alibaba.fastjson.JSON;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;

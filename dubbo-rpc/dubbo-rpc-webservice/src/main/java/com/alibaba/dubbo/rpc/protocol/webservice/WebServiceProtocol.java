@@ -25,7 +25,6 @@ import com.alibaba.dubbo.remoting.http.servlet.DispatcherServlet;
 import com.alibaba.dubbo.rpc.RpcContext;
 import com.alibaba.dubbo.rpc.RpcException;
 import com.alibaba.dubbo.rpc.protocol.AbstractProxyProtocol;
-
 import org.apache.cxf.bus.extension.ExtensionManagerBus;
 import org.apache.cxf.endpoint.Client;
 import org.apache.cxf.frontend.ClientProxy;

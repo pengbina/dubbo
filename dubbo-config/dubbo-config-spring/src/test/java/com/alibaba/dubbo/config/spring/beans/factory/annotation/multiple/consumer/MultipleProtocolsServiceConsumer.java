@@ -19,7 +19,6 @@ package com.alibaba.dubbo.config.spring.beans.factory.annotation.multiple.consum
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.dubbo.config.spring.api.HelloService;
 import com.alibaba.dubbo.config.spring.context.annotation.EnableDubbo;
-
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;

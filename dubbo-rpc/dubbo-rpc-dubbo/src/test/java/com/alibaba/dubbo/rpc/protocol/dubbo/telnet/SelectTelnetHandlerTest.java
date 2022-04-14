@@ -22,8 +22,9 @@ import com.alibaba.dubbo.remoting.RemotingException;
 import com.alibaba.dubbo.remoting.telnet.TelnetHandler;
 import com.alibaba.dubbo.rpc.protocol.dubbo.support.DemoService;
 import com.alibaba.dubbo.rpc.protocol.dubbo.support.ProtocolUtils;
-import org.junit.*;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;

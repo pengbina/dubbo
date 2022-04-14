@@ -26,9 +26,7 @@ import java.util.Scanner;
 import static java.lang.Math.abs;
 import static java.lang.Math.max;
 import static java.lang.String.format;
-import static org.apache.commons.lang3.StringUtils.EMPTY;
-import static org.apache.commons.lang3.StringUtils.length;
-import static org.apache.commons.lang3.StringUtils.repeat;
+import static org.apache.commons.lang3.StringUtils.*;
 
 /**
  * Table

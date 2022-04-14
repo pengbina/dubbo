@@ -17,7 +17,6 @@
 package com.alibaba.dubbo.examples.cache;
 
 import com.alibaba.dubbo.examples.cache.api.CacheService;
-
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**

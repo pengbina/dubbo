@@ -28,10 +28,7 @@ import java.util.Random;
 
 import static com.alibaba.dubbo.remoting.buffer.ChannelBuffers.directBuffer;
 import static com.alibaba.dubbo.remoting.buffer.ChannelBuffers.wrappedBuffer;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 
 public abstract class AbstractChannelBufferTest {

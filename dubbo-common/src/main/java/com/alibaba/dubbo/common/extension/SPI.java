@@ -17,11 +17,7 @@
 
 package com.alibaba.dubbo.common.extension;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 
 /**
  * Marker for extension interface
@@ -50,6 +46,10 @@ import java.lang.annotation.Target;
  * Fails to load Extension("mina"). When user configure to use mina, dubbo will complain the extension cannot be loaded,
  * instead of reporting which extract extension implementation fails and the extract reason.
  * </p>
+ *
+ * 该注解可以使用在类，接口，枚举上，在dubbo框架中都使用在接口上，它的作用就是标记
+ * 该接口是一个dubbo spi接口，是一个扩展点，可以有多个接口的实现。
+ * 该注解有一个value属性，表示该接口的默认实现
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
@@ -58,6 +58,7 @@ public @interface SPI {
 
     /**
      * default extension name
+     * 默认实现
      */
     String value() default "";
 

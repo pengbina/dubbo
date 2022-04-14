@@ -18,7 +18,6 @@ package com.alibaba.dubbo.examples.callback;
 
 import com.alibaba.dubbo.examples.callback.api.CallbackListener;
 import com.alibaba.dubbo.examples.callback.api.CallbackService;
-
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**

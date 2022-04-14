@@ -17,12 +17,7 @@
 package com.alibaba.dubbo.config.mock;
 
 import com.alibaba.dubbo.common.URL;
-import com.alibaba.dubbo.rpc.Exporter;
-import com.alibaba.dubbo.rpc.Invocation;
-import com.alibaba.dubbo.rpc.Invoker;
-import com.alibaba.dubbo.rpc.Protocol;
-import com.alibaba.dubbo.rpc.Result;
-import com.alibaba.dubbo.rpc.RpcException;
+import com.alibaba.dubbo.rpc.*;
 
 public class MockProtocol implements Protocol {
 

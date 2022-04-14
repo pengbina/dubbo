@@ -18,7 +18,6 @@ package com.alibaba.dubbo.container.log4j;
 
 import com.alibaba.dubbo.common.utils.ConfigUtils;
 import com.alibaba.dubbo.container.Container;
-
 import org.apache.log4j.Appender;
 import org.apache.log4j.FileAppender;
 import org.apache.log4j.LogManager;

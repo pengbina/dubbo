@@ -18,15 +18,9 @@ package com.alibaba.dubbo.rpc.protocol.dubbo;
 
 import com.alibaba.dubbo.common.Constants;
 import com.alibaba.dubbo.common.URL;
-import com.alibaba.dubbo.rpc.Filter;
-import com.alibaba.dubbo.rpc.Invoker;
-import com.alibaba.dubbo.rpc.Result;
-import com.alibaba.dubbo.rpc.RpcException;
-import com.alibaba.dubbo.rpc.RpcInvocation;
-import com.alibaba.dubbo.rpc.RpcResult;
+import com.alibaba.dubbo.rpc.*;
 import com.alibaba.dubbo.rpc.protocol.dubbo.filter.FutureFilter;
 import com.alibaba.dubbo.rpc.protocol.dubbo.support.DemoService;
-
 import org.junit.BeforeClass;
 import org.junit.Test;
 

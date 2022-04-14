@@ -34,7 +34,6 @@ import com.alibaba.dubbo.rpc.cluster.loadbalance.LeastActiveLoadBalance;
 import com.alibaba.dubbo.rpc.cluster.loadbalance.RoundRobinLoadBalance;
 import com.alibaba.dubbo.rpc.cluster.router.script.ScriptRouter;
 import com.alibaba.dubbo.rpc.cluster.router.script.ScriptRouterFactory;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
