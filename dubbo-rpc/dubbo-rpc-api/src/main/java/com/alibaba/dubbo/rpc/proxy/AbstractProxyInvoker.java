@@ -23,6 +23,9 @@ import java.lang.reflect.InvocationTargetException;
 
 /**
  * InvokerWrapper
+ *
+ * 构造中对proxy接口实现类，具体提供服务，Class type接口类型，URL url,这三个参数进行检验，然后存储。
+ * 实现接口invoker的invoke(Invocation invocation)方法，实际上还是子类实现doInvoke方法。
  */
 public abstract class AbstractProxyInvoker<T> implements Invoker<T> {
 
@@ -33,12 +36,14 @@ public abstract class AbstractProxyInvoker<T> implements Invoker<T> {
     private final URL url;
 
     public AbstractProxyInvoker(T proxy, Class<T> type, URL url) {
+        //参数验证 proxy != null
         if (proxy == null) {
             throw new IllegalArgumentException("proxy == null");
         }
         if (type == null) {
             throw new IllegalArgumentException("interface == null");
         }
+        //proxy 需要实现type
         if (!type.isInstance(proxy)) {
             throw new IllegalArgumentException(proxy.getClass().getName() + " not implement interface " + type);
         }
@@ -66,6 +71,12 @@ public abstract class AbstractProxyInvoker<T> implements Invoker<T> {
     public void destroy() {
     }
 
+    /**
+     * 调用
+     * @param invocation 调用实体
+     * @return 结果实体
+     * @throws RpcException
+     */
     @Override
     public Result invoke(Invocation invocation) throws RpcException {
         try {
@@ -77,6 +88,7 @@ public abstract class AbstractProxyInvoker<T> implements Invoker<T> {
         }
     }
 
+    //实际调用子类实现
     protected abstract Object doInvoke(T proxy, String methodName, Class<?>[] parameterTypes, Object[] arguments) throws Throwable;
 
     @Override

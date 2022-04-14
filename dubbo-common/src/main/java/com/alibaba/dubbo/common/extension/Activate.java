@@ -43,6 +43,18 @@ import java.lang.annotation.*;
  * before 填写扩展点列表，表示哪些扩展点需要在本扩展点的前面
  * after 表示哪些扩展点需要在本扩展点的后面
  * order 排序信息
+ *
+ * @Activate 总结
+ * 1.String[] group 这个属性是分组的，在我们服务提供者就是provider,然后服务消费者那边就是consumer,你没配置组也就算了，
+ * 如果你配置了组，就会把不是你这个组的给过滤掉。
+ * 2.String[] value,这个参数也是个数组形式，他会查找URL中如果包含该key值就会激活，咱们上面代码中也看到了判断中有个
+ * isActive(activate,url),其实这个方法就是把activate的value值拿出来，跟URL的所有key做比较，相等或者是key,然后
+ * URL对应的value还不能是null,这才返回true.
+ * 3.String[] before,after这两个属性在排序的时候用到了，before就是标识哪些扩展点在本扩展点前面，
+ * after就是标识哪些扩展点在本扩展点后面。
+ * 4.int order这个也是在排序的时候使用，先按照before跟after排，这个排好了直接返回了，最后用这个order排序。
+ * 这里有个点 就是用-这个符合标识就可以不被激活，在filter属性上使用-标识需要去掉的过滤器，
+ * 比如<dubbo:provider filter="-monitor"/>，你也用-default来去掉所有。
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)

@@ -48,34 +48,48 @@ import static com.alibaba.dubbo.common.utils.NetUtils.*;
  * ServiceConfig
  *
  * @export
+ *
+ * 每暴露一个接口就会有一个ServiceConfig对象
+ *
  */
 public class ServiceConfig<T> extends AbstractServiceConfig {
 
     private static final long serialVersionUID = 3033787999037024738L;
 
+    //自适应protocol，这个就跟变色龙似的，能够根据具体的参数值变成不同的实现
     private static final Protocol protocol = ExtensionLoader.getExtensionLoader(Protocol.class).getAdaptiveExtension();
 
+    //代理工厂的自适应
     private static final ProxyFactory proxyFactory = ExtensionLoader.getExtensionLoader(ProxyFactory.class).getAdaptiveExtension();
 
+    //记录随机端口的
     private static final Map<String, Integer> RANDOM_PORT_MAP = new HashMap<String, Integer>();
 
+    //延时暴露 executor
     private static final ScheduledExecutorService delayExportExecutor = Executors.newSingleThreadScheduledExecutor(new NamedThreadFactory("DubboServiceDelayExporter", true));
     private final List<URL> urls = new ArrayList<URL>();
+    //exporters
     private final List<Exporter<?>> exporters = new ArrayList<Exporter<?>>();
     // interface type
+    //接口名
     private String interfaceName;
+    //接口class
     private Class<?> interfaceClass;
     // reference to interface impl
+    //具体实现类
     private T ref;
     // service name
     private String path;
     // method configuration
+    //方法的配置
     private List<MethodConfig> methods;
+    //关于provider的配置
     private ProviderConfig provider;
+    //是否已经暴露
     private transient volatile boolean exported;
-
+    //是否需要暴露
     private transient volatile boolean unexported;
-
+    //范化
     private volatile String generic;
 
     public ServiceConfig() {
@@ -175,6 +189,15 @@ public class ServiceConfig<T> extends AbstractServiceConfig {
         return unexported;
     }
 
+    /**
+     * 此方法主要做的工作就是服务暴露延迟的，如果delay不是null&& delay > 0,然后给
+     * ScheduledExecutorService然后delay ms之后再进行服务暴露，我们要想使用延迟
+     * 暴露功能，可以在@Service注解中添加delay属性。
+     * @Service(delay = 1000)
+     * 也可以在xml中添加
+     * <dubbo:provider delay="100"/>
+     * <dubbo:service interface="x.x.x.x" delay="1000"></dubbo:service>
+     */
     public synchronized void export() {
         if (provider != null) {
             if (export == null) {
@@ -187,7 +210,7 @@ public class ServiceConfig<T> extends AbstractServiceConfig {
         if (export != null && !export) {
             return;
         }
-
+        //延时暴露
         if (delay != null && delay > 0) {
             delayExportExecutor.schedule(new Runnable() {
                 @Override
@@ -200,6 +223,7 @@ public class ServiceConfig<T> extends AbstractServiceConfig {
         }
     }
 
+    //不延迟暴露走doExport()方法
     protected synchronized void doExport() {
         if (unexported) {
             throw new IllegalStateException("Already unexported!");
@@ -252,13 +276,17 @@ public class ServiceConfig<T> extends AbstractServiceConfig {
             }
         } else {
             try {
+                //创建class对象
                 interfaceClass = Class.forName(interfaceName, true, Thread.currentThread()
                         .getContextClassLoader());
             } catch (ClassNotFoundException e) {
                 throw new IllegalStateException(e.getMessage(), e);
             }
+            //检查方法是否在接口中
             checkInterfaceAndMethods(interfaceClass, methods);
+            //检查实现类
             checkRef();
+            //不是泛化
             generic = Boolean.FALSE.toString();
         }
         if (local != null) {
@@ -343,6 +371,19 @@ public class ServiceConfig<T> extends AbstractServiceConfig {
         }
     }
 
+    /**
+     * 这个方法首先判断ProtocolConfig的协议，如果没有默认设置成dubbo,再往下就是设置参数，
+     * 比如side=provider，dubbo=2.2.0,timestamp,pid等等，然后把一些config中的配置塞到map中，
+     * 接着就是遍历处理MethodConfig，再接着就是判断是不是泛化调用，如果是就把泛化的信息扔到map中，
+     * 设置methods=*,如果不是泛化调用，就找到你所有的method,然后将methods=你所有method名拼接起来。
+     * 接着就是将token参数塞到map中。如果你的协议是injvm,设置notify=false,protocolConfig.setRegister(false);
+     * 获取host,port,最终利用map里面这一堆配置创建出一个新的URL。
+     * 其实上面这些就是提取配置，封装配置，最后创建URL。
+     * 接着String scope = url.getParameter(Constants.SCOPE_KEY);获取配置的scope,如果你这个scope不是
+     * none,remote，这时候就会本地暴露，只要你没有显式的配置scope=remote,就会进行本地暴露。
+     * @param protocolConfig
+     * @param registryURLs
+     */
     private void doExportUrlsFor1Protocol(ProtocolConfig protocolConfig, List<URL> registryURLs) {
         String name = protocolConfig.getName();
         if (name == null || name.length() == 0) {
@@ -417,7 +458,7 @@ public class ServiceConfig<T> extends AbstractServiceConfig {
             } // end of methods for
         }
 
-        if (ProtocolUtils.isGeneric(generic)) {
+        if (ProtocolUtils.isGeneric(generic)) {//泛化调用
             map.put(Constants.GENERIC_KEY, generic);
             map.put(Constants.METHODS_KEY, Constants.ANY_VALUE);
         } else {
@@ -441,6 +482,7 @@ public class ServiceConfig<T> extends AbstractServiceConfig {
                 map.put(Constants.TOKEN_KEY, token);
             }
         }
+        //本地injvm
         if (Constants.LOCAL_PROTOCOL.equals(protocolConfig.getName())) {
             protocolConfig.setRegister(false);
             map.put("notify", "false");
@@ -465,39 +507,52 @@ public class ServiceConfig<T> extends AbstractServiceConfig {
         // don't export when none is configured
         if (!Constants.SCOPE_NONE.toString().equalsIgnoreCase(scope)) {
 
+            //本地服务暴露
+            //不是remote就本地暴露，如果不配置scope也进行本地暴露
             // export to local if the config is not remote (export to remote only when config is remote)
             if (!Constants.SCOPE_REMOTE.toString().equalsIgnoreCase(scope)) {
                 exportLocal(url);
             }
+            //远程服务暴露，不是local
             // export to remote if the config is not local (export to local only when config is local)
             if (!Constants.SCOPE_LOCAL.toString().equalsIgnoreCase(scope)) {
                 if (logger.isInfoEnabled()) {
                     logger.info("Export dubbo service " + interfaceClass.getName() + " to url " + url);
                 }
                 if (registryURLs != null && !registryURLs.isEmpty()) {
+                    //遍历注册中心
                     for (URL registryURL : registryURLs) {
                         url = url.addParameterIfAbsent(Constants.DYNAMIC_KEY, registryURL.getParameter(Constants.DYNAMIC_KEY));
+                        //获取监控中心
                         URL monitorUrl = loadMonitor(registryURL);
-                        if (monitorUrl != null) {
+                        if (monitorUrl != null) {//将监控中心添加到URL中
                             url = url.addParameterAndEncoded(Constants.MONITOR_KEY, monitorUrl.toFullString());
                         }
                         if (logger.isInfoEnabled()) {
                             logger.info("Register dubbo service " + interfaceClass.getName() + " url " + url + " to registry " + registryURL);
                         }
 
+                        //配置中有proxy_key的话就使用配置的
                         // For providers, this is used to enable custom proxy to generate invoker
                         String proxy = url.getParameter(Constants.PROXY_KEY);
+                        //设置配置的proxy_key
                         if (StringUtils.isNotEmpty(proxy)) {
                             registryURL = registryURL.addParameter(Constants.PROXY_KEY, proxy);
                         }
 
+                        //invoker 使用ProxyFactory生成invoker对象，这里这个invoker其实是一个代理对象
                         Invoker<?> invoker = proxyFactory.getInvoker(ref, (Class) interfaceClass, registryURL.addParameterAndEncoded(Constants.EXPORT_KEY, url.toFullString()));
+                        //创建 DelegateProviderMetaInvoker对象
                         DelegateProviderMetaDataInvoker wrapperInvoker = new DelegateProviderMetaDataInvoker(invoker, this);
 
+                        //filter -->listener --> registryProtocol 这里使用了wrapper包装机制
+                        //filter-->listener --> dubboProtocol 服务暴露
                         Exporter<?> exporter = protocol.export(wrapperInvoker);
+                        //添加exporter
                         exporters.add(exporter);
                     }
                 } else {
+                    //没有注册中心
                     Invoker<?> invoker = proxyFactory.getInvoker(ref, (Class) interfaceClass, url);
                     DelegateProviderMetaDataInvoker wrapperInvoker = new DelegateProviderMetaDataInvoker(invoker, this);
 
@@ -509,14 +564,32 @@ public class ServiceConfig<T> extends AbstractServiceConfig {
         this.urls.add(url);
     }
 
+    /**
+     * 首先判断protocol不是injvm的话，就把URL中的protocol变成injvm,host是127.0.0.1,port是0，
+     * 其实这里是新生成了一个URL，把之前URL里面的配置搬过来了。接着就是往context中添加一个键值，
+     * key是接口的全类名，value是实现类的全类名。
+     * 再接着就是 Exporter<?> exporter = protocol.export(proxyFactory.getInvoker...)
+     * @param url
+     */
     @SuppressWarnings({"unchecked", "rawtypes"})
+    //本地服务暴露
     private void exportLocal(URL url) {
+        //如果protocol不是injvm
         if (!Constants.LOCAL_PROTOCOL.equalsIgnoreCase(url.getProtocol())) {
+
+            //设置protocol是injvm
             URL local = URL.valueOf(url.toFullString())
                     .setProtocol(Constants.LOCAL_PROTOCOL)
+                    //host 是127.0.0.1
                     .setHost(LOCALHOST)
                     .setPort(0);
+            //service.classimpl
             StaticContext.getContext(Constants.SERVICE_IMPL_CLASS).put(url.getServiceKey(), getServiceClass(ref));
+            /**
+             * ref:接口实现类
+             * interfaceClass:接口class
+             * local: URL
+             */
             Exporter<?> exporter = protocol.export(
                     proxyFactory.getInvoker(ref, (Class) interfaceClass, local));
             exporters.add(exporter);
