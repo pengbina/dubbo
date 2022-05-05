@@ -47,10 +47,7 @@ import static com.alibaba.dubbo.common.utils.NetUtils.*;
 /**
  * ServiceConfig
  *
- * @export
- *
- * 每暴露一个接口就会有一个ServiceConfig对象
- *
+ * @export 每暴露一个接口就会有一个ServiceConfig对象
  */
 public class ServiceConfig<T> extends AbstractServiceConfig {
 
@@ -193,6 +190,7 @@ public class ServiceConfig<T> extends AbstractServiceConfig {
      * 此方法主要做的工作就是服务暴露延迟的，如果delay不是null&& delay > 0,然后给
      * ScheduledExecutorService然后delay ms之后再进行服务暴露，我们要想使用延迟
      * 暴露功能，可以在@Service注解中添加delay属性。
+     *
      * @Service(delay = 1000)
      * 也可以在xml中添加
      * <dubbo:provider delay="100"/>
@@ -223,6 +221,16 @@ public class ServiceConfig<T> extends AbstractServiceConfig {
         }
     }
 
+    /**
+     * 前几行就是判断服务是否暴露，然后把exported属性设置成true。判断接口名interfaceName不是空。
+     * 接着就是checkDefault();checkDefault主要就是检查provider是否是null,是null就创建，
+     * 然后设置一些属性到provider中。接着就是把provider中的application,module,registries,
+     * monitor,protocols赋值给ServiceConfig属性。
+     * 接着就是判断接口类型是否是GenericService,其实这个GenericService接口是泛化接口，然后把
+     * interfaceClass设置成GenericService的class,generic = Boolean.TRUE.toString();
+     * 如果不是泛化，创建interfaceClass,检查方法是否在接口中，接着是检查实现类是否是接口的实现类。
+     * generic=Boolean.FALSE.toString();设置不是泛化，后面的都是一些检查配置参数的。
+     */
     //不延迟暴露走doExport()方法
     protected synchronized void doExport() {
         if (unexported) {
@@ -365,6 +373,7 @@ public class ServiceConfig<T> extends AbstractServiceConfig {
 
     @SuppressWarnings({"unchecked", "rawtypes"})
     private void doExportUrls() {
+        //获取注册中心列表，一个URL就是一个注册中心
         List<URL> registryURLs = loadRegistries(true);
         for (ProtocolConfig protocolConfig : protocols) {
             doExportUrlsFor1Protocol(protocolConfig, registryURLs);
@@ -381,20 +390,26 @@ public class ServiceConfig<T> extends AbstractServiceConfig {
      * 其实上面这些就是提取配置，封装配置，最后创建URL。
      * 接着String scope = url.getParameter(Constants.SCOPE_KEY);获取配置的scope,如果你这个scope不是
      * none,remote，这时候就会本地暴露，只要你没有显式的配置scope=remote,就会进行本地暴露。
+     *
      * @param protocolConfig
      * @param registryURLs
      */
     private void doExportUrlsFor1Protocol(ProtocolConfig protocolConfig, List<URL> registryURLs) {
         String name = protocolConfig.getName();
         if (name == null || name.length() == 0) {
+            //默认是dubbo
             name = "dubbo";
         }
 
         Map<String, String> map = new HashMap<String, String>();
+        // side 那一端
         map.put(Constants.SIDE_KEY, Constants.PROVIDER_SIDE);
+        //版本
         map.put(Constants.DUBBO_VERSION_KEY, Version.getProtocolVersion());
+        //timestamp
         map.put(Constants.TIMESTAMP_KEY, String.valueOf(System.currentTimeMillis()));
         if (ConfigUtils.getPid() > 0) {
+            //pid
             map.put(Constants.PID_KEY, String.valueOf(ConfigUtils.getPid()));
         }
         appendParameters(map, application);
@@ -569,6 +584,7 @@ public class ServiceConfig<T> extends AbstractServiceConfig {
      * 其实这里是新生成了一个URL，把之前URL里面的配置搬过来了。接着就是往context中添加一个键值，
      * key是接口的全类名，value是实现类的全类名。
      * 再接着就是 Exporter<?> exporter = protocol.export(proxyFactory.getInvoker...)
+     *
      * @param url
      */
     @SuppressWarnings({"unchecked", "rawtypes"})
