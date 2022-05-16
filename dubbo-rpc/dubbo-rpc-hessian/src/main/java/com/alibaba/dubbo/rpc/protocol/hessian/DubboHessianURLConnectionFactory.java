@@ -24,6 +24,7 @@ import com.caucho.hessian.client.HessianURLConnectionFactory;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ServiceLoader;
 
 public class DubboHessianURLConnectionFactory extends HessianURLConnectionFactory {
 

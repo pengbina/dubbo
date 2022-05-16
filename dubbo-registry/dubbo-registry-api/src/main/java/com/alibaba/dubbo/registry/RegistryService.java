@@ -21,6 +21,15 @@ import com.alibaba.dubbo.common.URL;
 import java.util.List;
 
 /**
+ * 注册中心是什么？
+ * 服务治理框架中可以大致分为服务通信和服务管理两个部分，服务管理可以分为服务注册、服务发现以及服务被热加工介入，服务提供者Provider会往注册中心注册服务，而消费者Consumer会从注册中心中订阅相关的服务，并不会订阅全部的服务。
+ *
+ * Registry类似于一个自动售货机，服务提供者类似于一个商品生产者，他会往这个自动售卖机中添加商品，
+ * 也就是注册服务，而消费者则会到注册中心中购买自己需要的商品，也就是订阅对应的服务。
+ * 这样解释应该就可以比较直观的感受到注册中心所担任的是什么角色。
+ *
+ *
+ * 该接口是注册中心模块的服务接口，提供了注册、取消注册、订阅、取消订阅以及查询符合条件的已注册数据。
  * RegistryService. (SPI, Prototype, ThreadSafe)
  *
  * @see com.alibaba.dubbo.registry.Registry

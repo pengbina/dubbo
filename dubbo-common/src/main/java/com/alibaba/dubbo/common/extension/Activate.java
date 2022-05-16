@@ -55,6 +55,10 @@ import java.lang.annotation.*;
  * 4.int order这个也是在排序的时候使用，先按照before跟after排，这个排好了直接返回了，最后用这个order排序。
  * 这里有个点 就是用-这个符合标识就可以不被激活，在filter属性上使用-标识需要去掉的过滤器，
  * 比如<dubbo:provider filter="-monitor"/>，你也用-default来去掉所有。
+ *
+ *
+ * 扩展点自动激活加载的注解，就是用条件来控制该扩展点实现是否被自动激活加载，
+ * 在扩展实现类上面使用，<u>实现了扩展点自动激活的特性</u>，它可以设置两个参数，分别是group和value。
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)

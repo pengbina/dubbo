@@ -24,6 +24,8 @@ import java.util.Comparator;
 
 /**
  * OrderComparetor
+ * 该类在ExtensionLoader类的getActivateExtension方法中被运用到，作为自动激活拓展对象的排序器。
+ * 关键的还是通过@Activate注解中的值来进行排序。
  */
 public class ActivateComparator implements Comparator<Object> {
 
@@ -31,6 +33,7 @@ public class ActivateComparator implements Comparator<Object> {
 
     @Override
     public int compare(Object o1, Object o2) {
+        //基本排序
         if (o1 == null && o2 == null) {
             return 0;
         }
@@ -45,6 +48,7 @@ public class ActivateComparator implements Comparator<Object> {
         }
         Activate a1 = o1.getClass().getAnnotation(Activate.class);
         Activate a2 = o2.getClass().getAnnotation(Activate.class);
+        //使用Activate注解的 `after` 和 `before` 属性，排序
         Class<?> spiClass = null;
         if (o1.getClass().getInterfaces().length > 0) {
             for (Class<?> item : o1.getClass().getInterfaces()) {

@@ -33,6 +33,7 @@ public class MockProtocol implements Protocol {
     /* (non-Javadoc)
      * @see com.alibaba.dubbo.rpc.Protocol#export(com.alibaba.dubbo.rpc.Invoker)
      */
+    @Override
     public <T> Exporter<T> export(Invoker<T> invoker) throws RpcException {
         return null;
     }

@@ -22,6 +22,7 @@ import com.alibaba.dubbo.common.extension.SPI;
 
 /**
  * Protocol. (API/SPI, Singleton, ThreadSafe)
+ * 如果使用者在<dubbo:protocol />、<dubbo:service />、<dubbo:reference />都没有指定protocol属性的话，那么就会默认DubboProtocol就是接口Protocol，因为在Protocol上有@SPI("dubbo")注解
  */
 @SPI("dubbo")
 public interface Protocol {
