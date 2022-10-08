@@ -47,14 +47,24 @@ import java.util.regex.Pattern;
  * @see com.alibaba.dubbo.common.extension.SPI
  * @see com.alibaba.dubbo.common.extension.Adaptive
  * @see com.alibaba.dubbo.common.extension.Activate
- *
- * 该类是扩展加载器，这是dubbo实现SPI扩展机制等核心，几乎所有实现的逻辑都被封装在ExtensionLoader中。
- *
+ * <p>
+ * 该类是扩展加载器，这是dubbo实现SPI扩展机制的核心，几乎所有实现的逻辑都被封装在ExtensionLoader中。
+ * <p>
+ * getExtensionLoader会对传进的接口进行校验，其中包括是否有 @SPI注解校验，这也是在接口上需加 @SPI的原因。
+ * 然后从 EXTENSION_LOADERS缓存中获取该接口类型的 ExtensionLoader,如果获取不到，则创建一个该接口类型的 ExtensionLoader放入到缓存中，并返回该 ExtensionLoader。
+ * <p>
+ * 注意这里创建 ExtensionLoader对象的构造方法如下：
+ * ExtensionLoader.getExtensionLoader获取ExtensionFactory接口的拓展类，
+ * 再通过 getAdaptiveExtension从拓展类中获取目标拓展类。它会设置该接口对应的 objectFactory常量为 AdaptiveExtensionFactory。
+ * 因为 AdaptiveExtensionFactory类上加了@Adaptive注解
+ * <p>
+ * 当通过 ExtensionLoader.getExtensionLoader取到接口的加载器Loader之后，在通过 getExtension方法获取需要拓展类对象。
  */
 public class ExtensionLoader<T> {
 
     private static final Logger logger = LoggerFactory.getLogger(ExtensionLoader.class);
 
+    //三个dubbo SPI默认扫描的路径
     //1.关于存放配置文件的路径变量：
     //是dubbo为了兼容jdk的SPI扩展机制思想而设存在的
     private static final String SERVICES_DIRECTORY = "META-INF/services/";
@@ -68,9 +78,11 @@ public class ExtensionLoader<T> {
     private static final Pattern NAME_SEPARATOR = Pattern.compile("\\s*[,]+\\s*");
 
     //扩展加载器集合，key为扩展接口，例如Protocol等
+    //扩展类加载器缓存，就是扩展点ExtendsLoader实例缓存，key=扩展接口，value=扩展类加载器
     private static final ConcurrentMap<Class<?>, ExtensionLoader<?>> EXTENSION_LOADERS = new ConcurrentHashMap<Class<?>, ExtensionLoader<?>>();
 
     //扩展实现类集合，key为扩展实现类，value为扩展对象，例如key为Class<DubboProtocol>，value为DubboProtocol对象
+    //扩展实例存入内存中缓存起来； key=扩展类 ； value=扩展类实例
     private static final ConcurrentMap<Class<?>, Object> EXTENSION_INSTANCES = new ConcurrentHashMap<Class<?>, Object>();
 
     // ==============================
@@ -85,11 +97,13 @@ public class ExtensionLoader<T> {
     //缓存的扩展名与拓展类映射，和cachedClasses的key和value对换。
     private final ConcurrentMap<Class<?>, String> cachedNames = new ConcurrentHashMap<Class<?>, String>();
     //缓存的扩展实现类集合
+    //扩展点Class缓存 key=扩展名 ，value=对应的class对象
     private final Holder<Map<String, Class<?>>> cachedClasses = new Holder<Map<String, Class<?>>>();
     //扩展名与加有@Activate的自动激活类的映射
     private final Map<String, Activate> cachedActivates = new ConcurrentHashMap<String, Activate>();
     //缓存的扩展对象集合，key为扩展名，value为扩展对象
     //例如Protocol扩展，key为dubbo，value为DubboProcotol
+    //扩展点实例缓存 key=扩展点名称，value=扩展实例的Holder实例
     private final ConcurrentMap<String, Holder<Object>> cachedInstances = new ConcurrentHashMap<String, Holder<Object>>();
     //缓存的自适应( Adaptive )扩展对象，例如例如AdaptiveExtensionFactory类的对象
     private final Holder<Object> cachedAdaptiveInstance = new Holder<Object>();
@@ -106,7 +120,6 @@ public class ExtensionLoader<T> {
      * 包装在真正的扩展点实现外，<u>这实现了扩展点自动包装的特性</u>。
      * 通俗点说，就是一个接口有很多的实现类，这些实现类会有一些公共的逻辑，如果在每个实现类写一遍这个公共逻辑，
      * 那么代码就会重复，所以增加了这个Wrapper类来包装，把公共逻辑写到Wrapper类中，有点类似AOP切面编程思想。
-     *
      */
     private Set<Class<?>> cachedWrapperClasses;
     //拓展名与加载对应拓展类发生的异常的映射
@@ -114,6 +127,8 @@ public class ExtensionLoader<T> {
 
     private ExtensionLoader(Class<?> type) {
         this.type = type;
+        //type通常不为ExtensionFactory类，
+        //则objectFactory为ExtensionFactory接口的默认扩展类AdaptiveExtensionFactory
         objectFactory = (type == ExtensionFactory.class ? null : ExtensionLoader.getExtensionLoader(ExtensionFactory.class).getAdaptiveExtension());
     }
 
@@ -126,19 +141,23 @@ public class ExtensionLoader<T> {
      * 根据扩展点接口来获得扩展加载器。
      */
     public static <T> ExtensionLoader<T> getExtensionLoader(Class<T> type) {
-        //扩展点接口为空，抛出异常
+        // 扩展点接口为空，抛出异常
+        //校验传进来的type类是否为空
         if (type == null)
             throw new IllegalArgumentException("Extension type == null");
         //判断type是否是一个接口类
+        //校验传进来的type类是否为接口
         if (!type.isInterface()) {
             throw new IllegalArgumentException("Extension type(" + type + ") is not interface!");
         }
         //判断是否为可扩展的接口
+        //校验传进来的type类是否有@SPI注解
         if (!withExtensionAnnotation(type)) {
             throw new IllegalArgumentException("Extension type(" + type +
                     ") is not extension, because WITHOUT @" + SPI.class.getSimpleName() + " Annotation!");
         }
         //从扩展加载器集合中取出扩展接口对应的扩展加载器
+        // 从ExtensionLoader缓存中查询是否已经存在对应类型的ExtensionLoader实例
         ExtensionLoader<T> loader = (ExtensionLoader<T>) EXTENSION_LOADERS.get(type);
         //如果为空，则创建该扩展接口的扩展加载器，并且添加到EXTENSION_LOADERS
         if (loader == null) {
@@ -180,12 +199,12 @@ public class ExtensionLoader<T> {
      * @return extension list which are activated
      * @see #getActivateExtension(com.alibaba.dubbo.common.URL, String[], String)
      * 获得符合自动激活条件的扩展实现类对象集合
-     *
+     * <p>
      * 可以看到getActivateExtension重载了四个方法，其实最终的实现都是在最后一个重载方法，
      * 因为自动激活类的条件可以分为无条件、只有value以及有group和value三种，具体的可以回顾上述
-     *
+     * <p>
      * 最后一个getActivateExtension方法有几个关键点：
-     *
+     * <p>
      * group的值合法判断，因为group可选"provider"或"consumer"。
      * 判断该配置是否被移除。
      * 如果有自定义配置，并且需要放在自动激活扩展实现对象加载前，那么需要先存放自定义配置。
@@ -338,11 +357,21 @@ public class ExtensionLoader<T> {
     /**
      * Find the extension with the given name. If the specified name is not found, then {@link IllegalStateException}
      * will be thrown.
-     *
+     * <p>
      * getExtension方法： 获得通过扩展名获得扩展对象
      * 这个方法中涉及到getDefaultExtension方法和createExtension方法，会在后面讲到。
      * 其他逻辑比较简单，就是从缓存中取，如果没有，就创建，然后放入缓存。
+     * <p>
+     * 获取接口拓展类实例
+     * 1.检查缓存中是否存在
+     * 2.创建并返回拓展类实例
      *
+     * @param name 需要获取的配置文件中拓展类的key
+     *             <p>
+     *             首先检查缓存，缓存未命中则创建拓展对象。dubbo中包含了大量的扩展点缓存。这个就是典型的使用空间换时间的做法。也是Dubbo性能强劲的原因之一，包括
+     *             <p>
+     *             1.扩展点Class缓存 ，Dubbo SPI在获取扩展点时，会优先从缓存中读取，如果缓存中不存在则加载配置文件，根据配置将Class缓存到内存中，并不会直接初始化。
+     *             2.扩展点实例缓存 ，Dubbo不仅会缓存Class,还会缓存Class的实例。每次取实例的时候会优先从缓存中取，取不到则从配置中加载，实例化并缓存到内存中。
      */
     @SuppressWarnings("unchecked")
     public T getExtension(String name) {
@@ -350,22 +379,29 @@ public class ExtensionLoader<T> {
             throw new IllegalArgumentException("Extension name == null");
         //查找默认的扩展实现，也就是@SPI中的默认值作为key
         if ("true".equals(name)) {
+            // 获取默认的拓展实现类,即@SPI注解上的默认实现类, 如@SPI("benz")
             return getDefaultExtension();
         }
         //缓存中获取对应的扩展对象
+        // Holder，顾名思义，用于持有目标对象，从缓存中拿，没有则创建
+        // 首先通过扩展名从扩展实例缓存中获取Holder对象
         Holder<Object> holder = cachedInstances.get(name);
         if (holder == null) {
+            //如果没有获取到就new一个空的Holder实例存入缓存
             cachedInstances.putIfAbsent(name, new Holder<Object>());
             holder = cachedInstances.get(name);
         }
+        //双重检查
         Object instance = holder.get();
         if (instance == null) {
             synchronized (holder) {
                 instance = holder.get();
                 if (instance == null) {
                     //通过扩展名创建接口实现类的对象
+                    //创建拓展实例
                     instance = createExtension(name);
                     //把创建的扩展对象放入缓存
+                    //设置实例到holder中
                     holder.set(instance);
                 }
             }
@@ -375,9 +411,9 @@ public class ExtensionLoader<T> {
 
     /**
      * Return default extension, return <code>null</code> if it's not configured.
-     *
+     * <p>
      * getDefaultExtension方法：查找默认的扩展实现
-     *
+     * <p>
      * 这里涉及到getExtensionClasses方法，会在后面讲到。
      * 获得默认的扩展实现类对象就是通过缓存中默认的扩展名去获得实现类对象。
      */
@@ -422,9 +458,8 @@ public class ExtensionLoader<T> {
      * @param name  extension name
      * @param clazz extension class
      * @throws IllegalStateException when extension with the same name has already been registered.
-     *
-     * addExtension方法：扩展接口的实现类
-     *
+     *                               <p>
+     *                               addExtension方法：扩展接口的实现类
      */
     public void addExtension(String name, Class<?> clazz) {
         getExtensionClasses(); // load classes
@@ -504,7 +539,7 @@ public class ExtensionLoader<T> {
 
     /**
      * getAdaptiveExtension方法：获得自适应扩展对象，也就是接口的适配器对象
-     *
+     * <p>
      * 思路就是先从缓存中取适配器类的对象，如果没有，则创建一个适配器对象，
      * 然后放入缓存，createAdaptiveExtension方法解释在后面给出。
      *
@@ -568,30 +603,53 @@ public class ExtensionLoader<T> {
     /**
      * createExtension方法：通过扩展名创建扩展接口实现类的对象
      * 这里运用到了两个扩展点的特性，分别是自动装配和自动包装。
-     * @param name
-     * @return
+     * <p>
+     * 创建拓展类实例，包含如下步骤
+     * 1. 通过 getExtensionClasses 获取所有的拓展类，从配置文件加载获取拓展类的map映射
+     * 2. 通过反射创建拓展对象
+     * 3. 向拓展对象中注入依赖（IOC）
+     * 4. 将拓展对象包裹在相应的 Wrapper 对象中(AOP)
+     *
+     * @param name 需要获取的配置文件中拓展类的key
+     * @return 拓展类实例
+     * <p>
+     * <p>
+     * 创建拓展类对象步骤分别为：
+     * <p>
+     * 通过 getExtensionClasses 从配置文件中加载所有的拓展类，再通过名称获取目标拓展类
+     * 通过反射创建拓展对象
+     * 向拓展对象中注入依赖
+     * 将拓展对象包裹在相应的 Wrapper 对象中
      */
     @SuppressWarnings("unchecked")
     private T createExtension(String name) {
         //获得扩展名对应的扩展实现类
+        // 从配置文件中加载所有的拓展类，可得到“配置项名称”到“配置类”的map，
+        // 再根据拓展项名称从map中取出相应的拓展类即可
         Class<?> clazz = getExtensionClasses().get(name);
         if (clazz == null) {
             throw findException(name);
         }
         try {
             //看缓存中是否有该类的对象
+            //从扩展点缓存中获取对应实例对象
             T instance = (T) EXTENSION_INSTANCES.get(clazz);
             if (instance == null) {
+                //如果缓存中不存在此类的扩展点，就通过反射创建实例,并存入缓存
                 EXTENSION_INSTANCES.putIfAbsent(clazz, clazz.newInstance());
+                //然后从缓存中获取对应实例
                 instance = (T) EXTENSION_INSTANCES.get(clazz);
             }
             //向对象中注入依赖的属性（自动装配）
+            // 向实例中注入依赖,通过setter方法自动注入对应的属性实例
             injectExtension(instance);
             //创建 Wrapper 扩展对象（自动包装）
             //所有的wrapper缓存
+            //从缓存中取出所有的包装类，形成包装链
             Set<Class<?>> wrapperClasses = cachedWrapperClasses;
             if (wrapperClasses != null && !wrapperClasses.isEmpty()) {
                 //包装wrapper
+                // 循环创建 Wrapper 实例,形成Wrapper包装链
                 for (Class<?> wrapperClass : wrapperClasses) {
                     instance = injectExtension((T) wrapperClass.getConstructor(type).newInstance(instance));
                 }
@@ -605,8 +663,9 @@ public class ExtensionLoader<T> {
 
     /**
      * injectExtension方法：向创建的拓展注入其依赖的属性
-     *
+     * <p>
      * 思路就是是先通过反射获得类中的所有方法，然后找到set方法，找到需要依赖注入的属性，然后把对象注入进去。
+     *
      * @param instance
      * @return
      */
@@ -659,6 +718,7 @@ public class ExtensionLoader<T> {
 
     /**
      * getExtensionClass方法：获得扩展名对应的扩展实现类
+     *
      * @param name
      * @return
      */
@@ -675,18 +735,27 @@ public class ExtensionLoader<T> {
 
     /**
      * getExtensionClasses方法：获得扩展实现类数组
-     *
+     * <p>
      * 这里思路就是先从缓存中取，如果缓存为空，则从配置文件中读取扩展实现类
-     * @return
+     *
+     * @return 从配置文件中加载所有的拓展类
+     * 在通过name获取拓展类之前，首先需要根据配置文件解析出拓展项名称与拓展类的映射map，之后再根据拓展项名称从map中取出相应的拓展类即可
+     * <p>
+     * 解析配置文件中接口的拓展项名称与拓展类的映射表map
+     * <p>
+     * 这里也是先检查缓存，若缓存未命中,则通过 loadExtensionClasses 加载拓展类，缓存避免了多次读取配置文件的耗时
      */
     private Map<String, Class<?>> getExtensionClasses() {
+        //从缓存中获取已加载的拓展点class
         Map<String, Class<?>> classes = cachedClasses.get();
         //之前没有加载过
+        //双重检查
         if (classes == null) {
             synchronized (cachedClasses) {
                 classes = cachedClasses.get();
                 if (classes == null) {
                     //从配置文件中，加载扩展实现类数组
+                    // 加载拓展类
                     classes = loadExtensionClasses();
                     cachedClasses.set(classes);
                 }
@@ -697,15 +766,18 @@ public class ExtensionLoader<T> {
 
     /**
      * loadExtensionClasses方法：从配置文件中，加载拓展实现类数组
-     *
+     * <p>
      * 前一部分逻辑是在把SPI注解中的默认值放到缓存中去，加载实现类数组的逻辑是在后面几行，
      * 关键的就是loadDirectory方法（解析在下面给出），并且这里可以看出去找配置文件访问的资源路径顺序。
      *
-     * @return
+     * @return loadExtensionClasses 方法总共做了两件事情。
+     * 首先对 SPI 注解进行解析，获取并缓存接口的 @SPI注解上的默认拓展类在 cachedDefaultName。
+     * 再调用 loadDirectory 方法加载指定文件夹配置文件。
      */
     // synchronized in getExtensionClasses
     private Map<String, Class<?>> loadExtensionClasses() {
         //获取到接口上面的spi 注解信息
+        //获取并缓存接口的@SPI注解上的默认实现类,@SPI("value")中的value
         final SPI defaultAnnotation = type.getAnnotation(SPI.class);
         if (defaultAnnotation != null) {
             //拿到spi注解上默认的值
@@ -725,6 +797,7 @@ public class ExtensionLoader<T> {
 
         //从配置文件中加载实现类数组
         Map<String, Class<?>> extensionClasses = new HashMap<String, Class<?>>();
+        // 加载指定文件夹下的配置文件,常量包含META-INF/dubbo/internal/，META-INF/dubbo/，META-INF/services/三个文件夹
         //去下面的这3个位置找扩展配置文件
         //META-INF/dubbo/internal/
         loadDirectory(extensionClasses, DUBBO_INTERNAL_DIRECTORY);
@@ -737,8 +810,9 @@ public class ExtensionLoader<T> {
 
     /**
      * loadDirectory方法：从一个配置文件中，加载拓展实现类数组
-     *
+     * <p>
      * 这边的思路是先获得完整的文件名，遍历每一个文件，在loadResource方法中去加载每个文件的内容
+     *
      * @param extensionClasses
      * @param dir
      */
@@ -760,6 +834,7 @@ public class ExtensionLoader<T> {
                 //遍历文件
                 while (urls.hasMoreElements()) {
                     java.net.URL resourceURL = urls.nextElement();
+                    // 解析并加载配置文件中配置的实现类到extensionClasses中去
                     loadResource(extensionClasses, classLoader, resourceURL);
                 }
             }
@@ -771,23 +846,30 @@ public class ExtensionLoader<T> {
 
     /**
      * loadResource方法：加载文件中的内容
-     *
+     * <p>
      * 该类的主要的逻辑就是读取里面的内容，跳过“#”注释的内容，
      * 根据配置文件中的key=value的形式去分割，然后去加载value对应的类
+     * <p>
+     * <p>
+     * 首先找到文件夹下的配置文件，文件名需为接口全限定名。
+     * 利用类加载器获取文件资源链接，再解析配置文件中配置的实现类添加到 extensionClasses中。
      *
      * @param extensionClasses
      * @param classLoader
-     * @param resourceURL
+     * @param resourceURL      loadResource 方法用于读取和解析配置文件，按行读取配置文件，每行以等于号 = 为界，截取键与值，并通过反射加载类,
+     *                         最后通过 loadClass方法加载扩展点实现类的class到map中，并对加载到的class进行分类缓存。
      */
     private void loadResource(Map<String, Class<?>> extensionClasses, ClassLoader classLoader, java.net.URL resourceURL) {
         try {
             // 使用reader读取文件，按照约定一行一行读取
+            // 按行读取配置内容
             BufferedReader reader = new BufferedReader(new InputStreamReader(resourceURL.openStream(), "utf-8"));
             try {
                 String line;
                 while ((line = reader.readLine()) != null) {
                     //跳过被#注释的内容
                     //处理注释问题
+                    // 截取 # 之前的字符串，# 之后的内容为注释，需要忽略
                     final int ci = line.indexOf('#');
                     if (ci >= 0) line = line.substring(0, ci);
                     line = line.trim();
@@ -813,6 +895,7 @@ public class ExtensionLoader<T> {
                                  * name:实现类的名字
                                  *
                                  */
+                                // 通过反射加载类，并通过 loadClass 方法对类进行缓存
                                 loadClass(extensionClasses, resourceURL, Class.forName(line, true, classLoader), name);
                             }
                         } catch (Throwable t) {
@@ -832,19 +915,23 @@ public class ExtensionLoader<T> {
 
     /**
      * loadClass方法：根据配置文件中的value加载扩展类
-     *
+     * <p>
      * 重点关注该方法中兼容了jdk的SPI思想。因为jdk的SPI相关的配置文件中是xx.yyy.DemoFilter，
      * 并没有key，也就是没有扩展名的概念，
      * 所有为了兼容，通过xx.yyy.DemoFilter生成的扩展名为demo。
      *
-     * @param extensionClasses
-     * @param resourceURL
-     * @param clazz
-     * @param name
-     * @throws NoSuchMethodException
-     */
+     * @param extensionClasses 装载配置文件类的容器
+     * @param resourceURL      配置文件资源URL
+     * @param clazz            扩展点实现类的class
+     * @param name             扩展点实现类的名称，配置文件一行中的key
+     * @throws NoSuchMethodException 加载扩展点实现类的class到map中，并对加载到的class进行分类缓存
+     *                               比如 cachedAdaptiveClass、cachedWrapperClasses 和 cachedNames 等等
+     *
+     * loadClass方法实现了扩展点的分类缓存功能，如包装类，自适应扩展点实现类，普通扩展点实现类等分别进行缓存。
+     **/
     private void loadClass(Map<String, Class<?>> extensionClasses, java.net.URL resourceURL, Class<?> clazz, String name) throws NoSuchMethodException {
         //该类是否实现扩展接口
+        //判断配置的实现类是否是实现了type接口
         if (!type.isAssignableFrom(clazz)) {
             throw new IllegalStateException("Error when load extension class(interface: " +
                     type + ", class line: " + clazz.getName() + "), class "
@@ -852,14 +939,20 @@ public class ExtensionLoader<T> {
         }
         //判断该类是否为扩展接口的适配器
         //缓存自适应拓展对象的类到cachedAdaptiveClass
-        if (clazz.isAnnotationPresent(Adaptive.class)) { //Adaptive注解是否在该类上面
+        //根据配置中实现类的类型来分类缓存起来
+        //检测目标类上是否有Adaptive注解，表示这个类就是一个自适应实现类，缓存到cachedAdaptiveClass
+        //Adaptive注解是否在该类上面
+        if (clazz.isAnnotationPresent(Adaptive.class)) {
             if (cachedAdaptiveClass == null) {
                 cachedAdaptiveClass = clazz;
-            } else if (!cachedAdaptiveClass.equals(clazz)) { // Adaptive注解在类上面的时候，只允许一个实现类上面有@Adaptive注解
+                // Adaptive注解在类上面的时候，只允许一个实现类上面有@Adaptive注解
+            } else if (!cachedAdaptiveClass.equals(clazz)) {
                 throw new IllegalStateException("More than 1 adaptive class found: "
                         + cachedAdaptiveClass.getClass().getName()
                         + ", " + clazz.getClass().getName());
             }
+            //检测clazz是否是Wrapper类型，判断依据是否有参数为该接口类的构造方法，
+            // 缓存到cachedWrapperClasses
         } else if (isWrapperClass(clazz)) {
             Set<Class<?>> wrappers = cachedWrapperClasses;
             if (wrappers == null) {
@@ -869,7 +962,10 @@ public class ExtensionLoader<T> {
             wrappers.add(clazz);
         } else {
             //通过反射获得构造器对象
+            //检测clazz是否有默认的构造方法，如果没有，则抛出异常
             clazz.getConstructor();
+            //如果配置文件中key的name为空，则尝试从Extension注解中获取name,或使用小写的类名作为name.
+            //已经弃用，就不再讨论这种方式了
             //未配置扩展名，自动生成，例如DemoFilter为 demo，主要用于兼容java SPI的配置。
             if (name == null || name.length() == 0) {
                 name = findAnnotationName(clazz);
@@ -878,18 +974,22 @@ public class ExtensionLoader<T> {
                 }
             }
             // 获得扩展名，可以是数组，有多个拓扩展名。
+            //使用逗号将name分割为字符串数组
             String[] names = NAME_SEPARATOR.split(name);
             if (names != null && names.length > 0) {
+                //如果扩展点配置的实现类使用了@Activate注解，就将对应的注解信息缓存起来
                 Activate activate = clazz.getAnnotation(Activate.class);
                 //如果是自动激活的实现类，则加入到缓存
                 if (activate != null) {
                     cachedActivates.put(names[0], activate);
                 }
                 for (String n : names) {
+                    //如果扩展点配置的实现类使用了@Activate注解，就将对应的注解信息缓存起来
                     if (!cachedNames.containsKey(clazz)) {
                         cachedNames.put(clazz, n);
                     }
                     //缓存扩展实现类
+                    //最后将class存入extensionClasses
                     Class<?> c = extensionClasses.get(n);
                     if (c == null) {
                         extensionClasses.put(n, clazz);
@@ -950,17 +1050,18 @@ public class ExtensionLoader<T> {
     /**
      * 首先是通过createAdaptiveExtensionClassCode方法来拼装成自适应实现类的代码，
      * 接着就是使用spi获取编译器，然后进行编译，加载，返回自适应实现类的class对象
-     *
+     * <p>
      * createAdaptiveExtensionClass方法：创建适配器类，
      * 类似于dubbo动态生成的Transporter$Adpative这样的类
-     *
-     *
+     * <p>
+     * <p>
      * 这个方法中就做了编译代码的逻辑，生成代码在createAdaptiveExtensionClassCode方法中，
      * createAdaptiveExtensionClassCode方法由于过长，
      * 我不在这边列出，下面会给出github的网址，读者可自行查看相关的源码解析。
      * createAdaptiveExtensionClassCode生成的代码逻辑可以对照我上述讲的（二）注解@Adaptive中的Transporter$Adpative类来看
+     * <p>
+     * https://github.com/CrazyHZM/incubator-dubbo/blob/analyze-2.6.x/dubbo-common/src/main/java/com/alibaba/dubbo/common/extension/ExtensionLoader.java
      *
-     *  https://github.com/CrazyHZM/incubator-dubbo/blob/analyze-2.6.x/dubbo-common/src/main/java/com/alibaba/dubbo/common/extension/ExtensionLoader.java
      * @return
      */
     private Class<?> createAdaptiveExtensionClass() {
